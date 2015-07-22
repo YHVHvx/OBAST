@@ -25,7 +25,10 @@ using namespace llvm;
 using namespace clang::ast_matchers;
 using namespace clang::ast_matchers::internal;
 
-static llvm::cl::OptionCategory MyToolCategory("my-tool options");
+static llvm::cl::OptionCategory myToolCategory("NVO Source to Source Transformation Tool");
+static cl::opt<int> nvoLevel("L", cl::desc("Specify nvo level"), cl::value_desc("1,2,3"), cl::cat(myToolCategory));
+//static cl::extrahelp CommonHelp(CommonOptionsParser::HelpMessage);
+static cl::extrahelp MoreHelp("\n Example Command: nvocomp ~/gadget/sha1.c -L=1 --\n");
 
 DeclarationMatcher nvoFuncMatcher = functionDecl(hasName("NVO_MODULE")).bind("nvo");
 DeclarationMatcher kgenesMatcher = varDecl(hasName("kgenes")).bind("kgenes");
@@ -53,7 +56,6 @@ public :
   KgenesCallback(Replacements* replace):replace(replace){};
   virtual void run(const MatchFinder::MatchResult &Result) {
     const VarDecl* var = Result.Nodes.getDeclAs<clang::VarDecl>("kgenes");
-    srand (time(NULL));
     string genes =  "int kgenes[80] = {";
     int i=0;
     for (i=0; i<79; i++){
@@ -73,7 +75,6 @@ public :
   FgenesCallback(Replacements* replace):replace(replace){};
   virtual void run(const MatchFinder::MatchResult &Result) {
     const VarDecl* var = Result.Nodes.getDeclAs<clang::VarDecl>("fgenes");
-    srand (time(NULL));
     string genes =  "int fgenes[80] = {";
     int i=0;
     for (i=0; i<79; i++){
@@ -88,24 +89,29 @@ public :
 
 int main(int argc, const char **argv) {
 
-    CommonOptionsParser op(argc, argv, MyToolCategory); 
+    int result;
+    CommonOptionsParser op(argc, argv, myToolCategory); 
     RefactoringTool Tool(op.getCompilations(), op.getSourcePathList());
-    
-    //NVOCallback nvoCallback(&Tool.getReplacements());
-    KgenesCallback kgenesCallback(&Tool.getReplacements());
-    FgenesCallback fgenesCallback(&Tool.getReplacements());
 
-    MatchFinder finder;
+    srand (time(NULL));
 
-    //finder.addMatcher(nvoFuncMatcher, &nvoCallback);
-    finder.addMatcher(kgenesMatcher, &kgenesCallback);
-    finder.addMatcher(fgenesMatcher, &fgenesCallback);
+    //"L1 NVO"
+    if(nvoLevel == 1){
+    	//NVOCallback nvoCallback(&Tool.getReplacements());
+    	KgenesCallback kgenesCallback(&Tool.getReplacements());
+    	FgenesCallback fgenesCallback(&Tool.getReplacements());
+
+    	MatchFinder finder;
+
+    	//finder.addMatcher(nvoFuncMatcher, &nvoCallback);
+    	finder.addMatcher(kgenesMatcher, &kgenesCallback);
+    	finder.addMatcher(fgenesMatcher, &fgenesCallback);
      
-    int result = Tool.runAndSave(newFrontendActionFactory(&finder).get());
-
-    llvm::outs() << "Replacements collected by the tool:\n";
-    for (auto &r : Tool.getReplacements()) {
-      llvm::outs() << r.toString() << "\n";
+    	result = Tool.runAndSave(newFrontendActionFactory(&finder).get());
+    	outs() << "Replacements collected by the tool:\n";
+    	for (auto &r : Tool.getReplacements()) {
+	    outs() << r.toString() << "\n";
+    	}
     }
     return result;
 }
