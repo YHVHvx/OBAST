@@ -2,7 +2,7 @@ CLANG_LEVEL := ../..
 
 TOOLNAME = nvogen  #the name of your tool's executable
 
-SOURCES := utils.cpp src2src.cpp  #the Clang source files you want to compile
+SOURCES := src2src.cpp  #the Clang source files you want to compile
 
 include $(CLANG_LEVEL)/../../Makefile.config
 

@@ -17,6 +17,8 @@
 #include <fstream>
 #include <sstream>
 #include <time.h>
+#include <hash_map>
+#include "nvo_sha1.h"
 
 using namespace std;
 using namespace clang;
@@ -26,173 +28,175 @@ using namespace llvm;
 using namespace clang::ast_matchers;
 using namespace clang::ast_matchers::internal;
 
-static llvm::cl::OptionCategory myToolCategory("NVO Source to Source Transformation Tool");
-static cl::opt<int> nvoLevel("L", cl::desc("Specify nvo level"), cl::value_desc("0,1,2"), cl::cat(myToolCategory));
-//static cl::extrahelp CommonHelp(CommonOptionsParser::HelpMessage);
-static cl::extrahelp MoreHelp("\n Example Command: nvocomp ~/gadget/sha1.c -L=1 --\n");
+Rewriter rewriter;
+map<string, string> funcMap;
 
-DeclarationMatcher lo0FuncMatcher = functionDecl(hasName("nv_lo0")).bind("nv_lo");
-DeclarationMatcher lo1FuncMatcher = functionDecl(hasName("nv_lo1")).bind("nv_lo");
-DeclarationMatcher lo2FuncMatcher = functionDecl(hasName("nv_lo2")).bind("nv_lo");
-DeclarationMatcher lo3FuncMatcher = functionDecl(hasName("nv_lo3")).bind("nv_lo");
-DeclarationMatcher kgenesMatcher = varDecl(hasName("kgenes")).bind("kgenes");
-DeclarationMatcher fgenesMatcher = varDecl(hasName("fgenes")).bind("fgenes");
+class MyObfVisitor : public RecursiveASTVisitor<MyObfVisitor> {
+private:
+    ASTContext *astContext; // used for getting additional AST info
 
-const LangOptions langOpt = LangOptions();
-
-
-class FBodys{
-private: 
-string fBodys[4];
-int fCounter = 0;
 public:
-    FBodys(){}
-    void Push(string fBody){
-        fBodys[fCounter++] = fBody; 
+    explicit MyObfVisitor(CompilerInstance *CI) 
+      : astContext(&(CI->getASTContext())) // initialize private members
+    {
+        rewriter.setSourceMgr(astContext->getSourceManager(), astContext->getLangOpts());
     }
-    string RandPull(){
-        int tmpId = rand()%fCounter;
-        string fBody = fBodys[tmpId]; 
-        int i = 0;
-        for(i = tmpId; i< fCounter - 1; i++)
-        {
-             fBodys[i] = fBodys[i+1];
+
+/*
+    virtual bool VisitVarDecl(VarDecl *var) {
+        string varName = var->getNameAsString();
+	QualType QT = var->getType();
+	return true;
+    }
+*/
+   virtual bool VisitFunctionDecl(FunctionDecl *func) {
+        string funcName = func->getNameInfo().getName().getAsString();
+        char newName[8];
+        int i;
+        for (i = 0; i < 8; i++){
+            newName[i] = (char) rand()%26 + 65;
         }
-        fCounter--;
-        return fBody;
+        funcMap[funcName] = newName;
+        rewriter.ReplaceText(func->getLocation(), funcName.length(), newName);
+        errs() << "** Rewrote function def: " << funcName << "\n";
+        return true;
     }
-}loFBodys;
 
-class FuncReadCallback : public MatchFinder::MatchCallback {
-private:
-  Replacements* replace;
-  const SourceManager* sm; 
-public :
-  FuncReadCallback(Replacements* replace):replace(replace){};
-  virtual void run(const MatchFinder::MatchResult &result) {
-    sm = result.SourceManager;
-    const FunctionDecl* fDecl = result.Nodes.getDeclAs<clang::FunctionDecl>("nv_lo");
-    CharSourceRange charSrcRange = CharSourceRange::getTokenRange(fDecl->getBody()->getSourceRange());
-    string fBody = Lexer::getSourceText(charSrcRange, *sm, LangOptions(), 0);
-    loFBodys.Push(fBody);
-  }
-};
-
-class FuncRewriteCallback : public MatchFinder::MatchCallback {
-private:
-  Replacements* replace;
-  const SourceManager* sm; 
-public :
-  FuncRewriteCallback(Replacements* replace):replace(replace){};
-  virtual void run(const MatchFinder::MatchResult &result) {
-    sm = result.SourceManager;
-    const FunctionDecl* fDecl = result.Nodes.getDeclAs<clang::FunctionDecl>("nv_lo");
-    CharSourceRange charSrcRange = CharSourceRange::getTokenRange(fDecl->getBody()->getSourceRange());
-    string newBody = loFBodys.RandPull();
-    Replacement rep(*sm, charSrcRange, newBody, langOpt);
-    replace->insert(rep);
-  }
-};
-
-class KgenesCallback : public MatchFinder::MatchCallback {
-private:
-  Replacements* replace;
-public :
-  KgenesCallback(Replacements* replace):replace(replace){};
-  virtual void run(const MatchFinder::MatchResult &Result) {
-    const VarDecl* var = Result.Nodes.getDeclAs<clang::VarDecl>("kgenes");
-    string genes =  "int kgenes[80] = {";
-    int i=0;
-    for (i=0; i<79; i++){
-	genes = genes + to_string(rand()%4) + ",";	
+    virtual bool VisitCallExpr(CallExpr *call) {
+        string funcName = call->getCallee()->getType().getAsString();
+        errs() <<funcName<<"\n";
+        string newName = funcMap[funcName];
+        if (newName != NULL){
+            rewriter.ReplaceText(call->getLocStart(), funcName.length(), newName);
+            errs() << "** Rewrote function call\n";
+        }
+        return true;
     }
-    genes = genes + to_string(rand()%4) + "}";	
 
-    Replacement rep(*(Result.SourceManager), var, genes, langOpt);
-    replace->insert(rep);
-  }
 };
 
-class FgenesCallback : public MatchFinder::MatchCallback {
+
+
+class MyObfASTConsumer : public ASTConsumer {
 private:
-  Replacements* replace;
-public :
-  FgenesCallback(Replacements* replace):replace(replace){};
-  virtual void run(const MatchFinder::MatchResult &Result) {
-    const VarDecl* var = Result.Nodes.getDeclAs<clang::VarDecl>("fgenes");
-    string genes =  "int fgenes[80] = {";
-    int i=0;
-    for (i=0; i<79; i++){
-	genes = genes + to_string(rand()%4) + ",";	
-    }
-    genes = genes + to_string(rand()%4) + "}";	
+    MyObfVisitor *visitor; // doesn't have to be private
 
-    Replacement rep(*(Result.SourceManager), var, genes, langOpt);
-    replace->insert(rep);
-  }
+public:
+    // override the constructor in order to pass CI
+    explicit MyObfASTConsumer(CompilerInstance *CI)
+        : visitor(new MyObfVisitor(CI)) // initialize the visitor
+    { }
+
+    // override this to call our ExampleVisitor on the entire source file
+    virtual void HandleTranslationUnit(ASTContext &Context) {
+        visitor->TraverseDecl(Context.getTranslationUnitDecl());
+    }
+
+
+    // override this to call our ExampleVisitor on each top-level Decl
+    virtual bool HandleTopLevelDecl(DeclGroupRef DG) {
+        // a DeclGroupRef may have multiple Decls, so we iterate through each one
+        for (DeclGroupRef::iterator i = DG.begin(), e = DG.end(); i != e; i++) {
+            Decl *D = *i;    
+            visitor->TraverseDecl(D); // recursively visit each AST node in Decl "D"
+        }
+        return true;
+    }
+
 };
+
+
+
+class MyObfFrontendAction : public ASTFrontendAction {
+public:
+    virtual std::unique_ptr<clang::ASTConsumer> CreateASTConsumer(CompilerInstance &CI, StringRef file) {
+        return std::unique_ptr<clang::ASTConsumer>(new MyObfASTConsumer(&CI)); // pass CI pointer to ASTConsumer
+    }
+};
+
+int NVO_L0(RefactoringTool &tool){
+    KgenesCallback kgenesCallback(&tool.getReplacements());
+    FgenesCallback fgenesCallback(&tool.getReplacements());
+
+    MatchFinder finder;
+
+    finder.addMatcher(kgenesMatcher, &kgenesCallback);
+    finder.addMatcher(fgenesMatcher, &fgenesCallback);
+     
+    int result = tool.runAndSave(newFrontendActionFactory(&finder).get());
+    return result;
+}
+
+int NVO_L1(RefactoringTool &tool){
+    FuncReadCallback lo0ReadCallback(&tool.getReplacements());
+    FuncReadCallback lo1ReadCallback(&tool.getReplacements());
+    FuncReadCallback lo2ReadCallback(&tool.getReplacements());
+    FuncReadCallback lo3ReadCallback(&tool.getReplacements());
+    FuncRewriteCallback lo0RewriteCallback(&tool.getReplacements());
+    FuncRewriteCallback lo1RewriteCallback(&tool.getReplacements());
+    FuncRewriteCallback lo2RewriteCallback(&tool.getReplacements());
+    FuncRewriteCallback lo3RewriteCallback(&tool.getReplacements());
+
+    MatchFinder finder;
+
+    finder.addMatcher(lo0FuncMatcher, &lo0ReadCallback);
+    finder.addMatcher(lo1FuncMatcher, &lo1ReadCallback);
+    finder.addMatcher(lo2FuncMatcher, &lo2ReadCallback);
+    finder.addMatcher(lo3FuncMatcher, &lo3ReadCallback);
+ 
+    int result = tool.runAndSave(newFrontendActionFactory(&finder).get());
+
+    MatchFinder finder2;
+
+    finder2.addMatcher(lo0FuncMatcher, &lo0RewriteCallback);
+    finder2.addMatcher(lo1FuncMatcher, &lo1RewriteCallback);
+    finder2.addMatcher(lo2FuncMatcher, &lo2RewriteCallback);
+    finder2.addMatcher(lo3FuncMatcher, &lo3RewriteCallback);
+
+    result = tool.runAndSave(newFrontendActionFactory(&finder2).get());
+    return result;
+}
+int NVO_L2(RefactoringTool &tool){
+    int result = tool.run(newFrontendActionFactory<MyObfFrontendAction>().get());
+    rewriter.getEditBuffer(rewriter.getSourceMgr().getMainFileID()).write(errs());
+    return result;
+}
 
 int main(int argc, const char **argv) {
 
-    int result;
+    int result = 0;
     CommonOptionsParser op(argc, argv, myToolCategory); 
-    RefactoringTool Tool(op.getCompilations(), op.getSourcePathList());
+    RefactoringTool tool(op.getCompilations(), op.getSourcePathList());
 
     srand (time(NULL));
 
     //"L1 NVO"
     if(nvoLevel == 0){
     	outs() << "NVO Level:0:Pure seed:\n";
-    	KgenesCallback kgenesCallback(&Tool.getReplacements());
-    	FgenesCallback fgenesCallback(&Tool.getReplacements());
-
-    	MatchFinder finder;
-
-    	finder.addMatcher(kgenesMatcher, &kgenesCallback);
-    	finder.addMatcher(fgenesMatcher, &fgenesCallback);
-     
-    	result = Tool.runAndSave(newFrontendActionFactory(&finder).get());
+        NVO_L0(tool);
     	outs() << "Replacements collected by the tool:\n";
-    	for (auto &r : Tool.getReplacements()) {
+    	for (auto &r : tool.getReplacements()) {
 	    outs() << r.toString() << "\n";
     	}
     }
 
     if(nvoLevel == 1){
     	outs() << "NVO Level:1:Function randomness:\n";
-    	FuncReadCallback lo0ReadCallback(&Tool.getReplacements());
-    	FuncReadCallback lo1ReadCallback(&Tool.getReplacements());
-    	FuncReadCallback lo2ReadCallback(&Tool.getReplacements());
-    	FuncReadCallback lo3ReadCallback(&Tool.getReplacements());
-    	FuncRewriteCallback lo0RewriteCallback(&Tool.getReplacements());
-    	FuncRewriteCallback lo1RewriteCallback(&Tool.getReplacements());
-    	FuncRewriteCallback lo2RewriteCallback(&Tool.getReplacements());
-    	FuncRewriteCallback lo3RewriteCallback(&Tool.getReplacements());
-    	KgenesCallback kgenesCallback(&Tool.getReplacements());
-    	FgenesCallback fgenesCallback(&Tool.getReplacements());
-
-    	MatchFinder finder;
-
-    	finder.addMatcher(lo0FuncMatcher, &lo0ReadCallback);
-    	finder.addMatcher(lo1FuncMatcher, &lo1ReadCallback);
-    	finder.addMatcher(lo2FuncMatcher, &lo2ReadCallback);
-    	finder.addMatcher(lo3FuncMatcher, &lo3ReadCallback);
- 
-    	result = Tool.runAndSave(newFrontendActionFactory(&finder).get());
-
-    	MatchFinder finder2;
-
-    	finder2.addMatcher(lo0FuncMatcher, &lo0RewriteCallback);
-    	finder2.addMatcher(lo1FuncMatcher, &lo1RewriteCallback);
-    	finder2.addMatcher(lo2FuncMatcher, &lo2RewriteCallback);
-    	finder2.addMatcher(lo3FuncMatcher, &lo3RewriteCallback);
-    	
-        finder2.addMatcher(kgenesMatcher, &kgenesCallback);
-    	finder2.addMatcher(fgenesMatcher, &fgenesCallback);
- 
-    	result = Tool.runAndSave(newFrontendActionFactory(&finder2).get());
+        NVO_L0(tool);
+        NVO_L1(tool);
     	outs() << "Replacements collected by the tool:\n";
-    	for (auto &r : Tool.getReplacements()) {
+    	for (auto &r : tool.getReplacements()) {
+	    outs() << r.toString() << "\n";
+    	}
+    }
+
+    if(nvoLevel == 2){
+    	outs() << "NVO Level:1:Function randomness:\n";
+        NVO_L0(tool);
+        NVO_L1(tool);
+        NVO_L2(tool);
+    	outs() << "Replacements collected by the tool:\n";
+    	for (auto &r : tool.getReplacements()) {
 	    outs() << r.toString() << "\n";
     	}
     }

@@ -223,7 +223,8 @@
   /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Lex/PreprocessorLexer.h \
   /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Lex/MultipleIncludeOpt.h \
   /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Lex/Token.h \
-  /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Basic/TemplateKinds.h
+  /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Basic/TemplateKinds.h \
+  /home/xuhui/llvm/build/tools/clang/tools/nvo/nvo_sha1.h
 
 /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Driver/Options.h:
 
@@ -670,3 +671,5 @@
 /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Lex/Token.h:
 
 /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Basic/TemplateKinds.h:
+
+/home/xuhui/llvm/build/tools/clang/tools/nvo/nvo_sha1.h:
