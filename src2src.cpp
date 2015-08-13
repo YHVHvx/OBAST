@@ -19,100 +19,12 @@
 #include <time.h>
 #include <hash_map>
 #include "nvo_sha1.h"
+#include "obf_func.h"
 
-using namespace std;
-using namespace clang;
-using namespace clang::driver;
-using namespace clang::tooling;
-using namespace llvm;
-using namespace clang::ast_matchers;
-using namespace clang::ast_matchers::internal;
-
-Rewriter rewriter;
-map<string, string> funcMap;
-
-class MyObfVisitor : public RecursiveASTVisitor<MyObfVisitor> {
-private:
-    ASTContext *astContext; // used for getting additional AST info
-
-public:
-    explicit MyObfVisitor(CompilerInstance *CI) 
-      : astContext(&(CI->getASTContext())) // initialize private members
-    {
-        rewriter.setSourceMgr(astContext->getSourceManager(), astContext->getLangOpts());
-    }
-
-/*
-    virtual bool VisitVarDecl(VarDecl *var) {
-        string varName = var->getNameAsString();
-	QualType QT = var->getType();
-	return true;
-    }
-*/
-   virtual bool VisitFunctionDecl(FunctionDecl *func) {
-        string funcName = func->getNameInfo().getName().getAsString();
-        char newName[8];
-        int i;
-        for (i = 0; i < 8; i++){
-            newName[i] = (char) rand()%26 + 65;
-        }
-        funcMap[funcName] = newName;
-        rewriter.ReplaceText(func->getLocation(), funcName.length(), newName);
-        errs() << "** Rewrote function def: " << funcName << "\n";
-        return true;
-    }
-
-    virtual bool VisitCallExpr(CallExpr *call) {
-        string funcName = call->getCallee()->getType().getAsString();
-        errs() <<funcName<<"\n";
-        string newName = funcMap[funcName];
-        if (newName != NULL){
-            rewriter.ReplaceText(call->getLocStart(), funcName.length(), newName);
-            errs() << "** Rewrote function call\n";
-        }
-        return true;
-    }
-
-};
-
-
-
-class MyObfASTConsumer : public ASTConsumer {
-private:
-    MyObfVisitor *visitor; // doesn't have to be private
-
-public:
-    // override the constructor in order to pass CI
-    explicit MyObfASTConsumer(CompilerInstance *CI)
-        : visitor(new MyObfVisitor(CI)) // initialize the visitor
-    { }
-
-    // override this to call our ExampleVisitor on the entire source file
-    virtual void HandleTranslationUnit(ASTContext &Context) {
-        visitor->TraverseDecl(Context.getTranslationUnitDecl());
-    }
-
-
-    // override this to call our ExampleVisitor on each top-level Decl
-    virtual bool HandleTopLevelDecl(DeclGroupRef DG) {
-        // a DeclGroupRef may have multiple Decls, so we iterate through each one
-        for (DeclGroupRef::iterator i = DG.begin(), e = DG.end(); i != e; i++) {
-            Decl *D = *i;    
-            visitor->TraverseDecl(D); // recursively visit each AST node in Decl "D"
-        }
-        return true;
-    }
-
-};
-
-
-
-class MyObfFrontendAction : public ASTFrontendAction {
-public:
-    virtual std::unique_ptr<clang::ASTConsumer> CreateASTConsumer(CompilerInstance &CI, StringRef file) {
-        return std::unique_ptr<clang::ASTConsumer>(new MyObfASTConsumer(&CI)); // pass CI pointer to ASTConsumer
-    }
-};
+static llvm::cl::OptionCategory myToolCategory("NVO Source to Source Transformation Tool");
+static cl::opt<int> nvoLevel("L", cl::desc("Specify nvo level"), cl::value_desc("0,1,2"), cl::cat(myToolCategory));
+//static cl::extrahelp CommonHelp(CommonOptionsParser::HelpMessage);
+static cl::extrahelp MoreHelp("\n Example Command: nvocomp ~/gadget/sha1.c -L=1 --\n");
 
 int NVO_L0(RefactoringTool &tool){
     KgenesCallback kgenesCallback(&tool.getReplacements());
@@ -170,7 +82,6 @@ int main(int argc, const char **argv) {
 
     srand (time(NULL));
 
-    //"L1 NVO"
     if(nvoLevel == 0){
     	outs() << "NVO Level:0:Pure seed:\n";
         NVO_L0(tool);
