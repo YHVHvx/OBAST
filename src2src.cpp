@@ -21,6 +21,8 @@
 #include "nvo_sha1.h"
 #include "obf_func.h"
 
+string projPath;
+
 static llvm::cl::OptionCategory myToolCategory("NVO Source to Source Transformation Tool");
 static cl::opt<int> nvoLevel("L", cl::desc("Specify nvo level"), cl::value_desc("0,1,2"), cl::cat(myToolCategory));
 //static cl::extrahelp CommonHelp(CommonOptionsParser::HelpMessage);
@@ -68,6 +70,7 @@ int NVO_L1(RefactoringTool &tool){
     result = tool.runAndSave(newFrontendActionFactory(&finder2).get());
     return result;
 }
+
 int NVO_L2(RefactoringTool &tool){
     int result = tool.run(newFrontendActionFactory<MyObfFrontendAction>().get());
     rewriter.getEditBuffer(rewriter.getSourceMgr().getMainFileID()).write(errs());
@@ -78,7 +81,17 @@ int main(int argc, const char **argv) {
 
     int result = 0;
     CommonOptionsParser op(argc, argv, myToolCategory); 
-    RefactoringTool tool(op.getCompilations(), op.getSourcePathList());
+    vector<string> projPaths = op.getSourcePathList();
+    RefactoringTool tool(op.getCompilations(), projPaths);
+
+    projPath = projPaths.at(0).substr(0,projPaths.at(0).rfind("/"));
+/*
+    FileID mainFid = rewriter.getSourceMgr().getMainFileID();
+    SourceLocation mainLoc = rewriter.getSourceMgr().getLocForStartOfFile(mainFid);
+    string mainFilePath = rewriter.getSourceMgr().getFilename(mainLoc);
+    projPath = mainFilePath.substr(0,mainFilePath.rfind("/"));
+*/
+    outs() << "===========PPPPPPPPPPPPPRRRRRRROOOOOOOOPATH="<<projPath<<"\n";
 
     srand (time(NULL));
 
@@ -102,9 +115,17 @@ int main(int argc, const char **argv) {
     }
 
     if(nvoLevel == 2){
-    	outs() << "NVO Level:1:Function randomness:\n";
+    	outs() << "NVO Level:2:Function randomness:\n";
         NVO_L0(tool);
         NVO_L1(tool);
+        NVO_L2(tool);
+    	outs() << "Replacements collected by the tool:\n";
+    	for (auto &r : tool.getReplacements()) {
+	    outs() << r.toString() << "\n";
+    	}
+    }
+    if(nvoLevel == 9){
+    	outs() << "NVO Level:9:TEST:\n";
         NVO_L2(tool);
     	outs() << "Replacements collected by the tool:\n";
     	for (auto &r : tool.getReplacements()) {

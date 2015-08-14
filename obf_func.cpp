@@ -4,25 +4,37 @@ map<string, string> funcMap;
 Rewriter rewriter;
 
 bool MyObfVisitor::VisitFunctionDecl(FunctionDecl *func) {
-    string funcName = func->getNameInfo().getName().getAsString();
-    char newName[8];
-    int i;
-    for (i = 0; i < 8; i++){
-        newName[i] = (char) rand()%26 + 65;
+    string fileName = rewriter.getSourceMgr().getFilename(func->getLocation());
+    if (fileName.compare(0,projPath.size(),projPath) != 0){
+        return false;
     }
-    funcMap[funcName] = newName;
-    rewriter.ReplaceText(func->getLocation(), funcName.length(), newName);
-    errs() << "** Rewrote function def: " << funcName << "\n";
+    string funcName = func->getNameInfo().getName().getAsString();
+    char newName[32];
+    if (funcMap[funcName] != "") {
+        sprintf(newName,"%s",funcMap[funcName].c_str());
+    }
+    else{
+        int i;
+        for (i = 0; i < 31; i++){
+            newName[i] = rand()%26 + 65;
+        }
+        funcMap[funcName] = newName;
+    }
+    rewriter.ReplaceText(func->getNameInfo().getSourceRange(), newName);
+    errs() << "** Rewrote function def: " << funcName << " to " << newName << "in File" << fileName <<"\n";
     return true;
 }
 
 bool MyObfVisitor::VisitCallExpr(CallExpr *call) {
-    string funcName = call->getCallee()->getType().getAsString();
-    errs() <<funcName<<"\n";
-    string newName = funcMap[funcName];
-    if (newName != NULL){
+    string funcName = call->getDirectCallee()->getNameInfo().getName().getAsString();
+    string newName;
+
+    if (funcName != ""){
+        newName = funcMap[funcName];
+    }    
+    if (newName != ""){
         rewriter.ReplaceText(call->getLocStart(), funcName.length(), newName);
-        errs() << "** Rewrote function call\n";
+        errs() << "** Rewrote function call\n" << funcName<<" to "<<newName;
     }
     return true;
 }

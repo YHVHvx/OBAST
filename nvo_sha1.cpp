@@ -50,7 +50,7 @@ void KgenesCallback::run(const MatchFinder::MatchResult &Result) {
     for (i=0; i<19; i++){
 	genes = genes + to_string(rand()%256) + ",";	
     }
-    genes = genes + to_string(rand()%256) + "};\n";	
+    genes = genes + to_string(rand()%256) + "};";	
 
     Replacement rep(*(Result.SourceManager), var, genes, LangOptions());
     replace->insert(rep);
@@ -63,7 +63,7 @@ void FgenesCallback::run(const MatchFinder::MatchResult &Result) {
     for (i=0; i<19; i++){
 	genes = genes + to_string(rand()%256) + ",";	
     }
-    genes = genes + to_string(rand()%256) + "};\n";	
+    genes = genes + to_string(rand()%256) + "};";	
 
     Replacement rep(*(Result.SourceManager), var, genes, LangOptions());
     replace->insert(rep);

@@ -30,6 +30,7 @@ using namespace clang::ast_matchers;
 using namespace clang::ast_matchers::internal;
 
 extern Rewriter rewriter;
+extern string projPath;
 
 class MyObfVisitor : public RecursiveASTVisitor<MyObfVisitor> {
 private:
