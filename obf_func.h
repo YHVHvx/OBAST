@@ -29,7 +29,7 @@ using namespace llvm;
 using namespace clang::ast_matchers;
 using namespace clang::ast_matchers::internal;
 
-extern Rewriter rewriter;
+//extern Rewriter rewriter;
 extern string projPath;
 
 class MyObfVisitor : public RecursiveASTVisitor<MyObfVisitor> {
@@ -37,11 +37,7 @@ private:
     ASTContext *astContext; // used for getting additional AST info
 
 public:
-    explicit MyObfVisitor(CompilerInstance *CI) 
-      : astContext(&(CI->getASTContext())) // initialize private members
-    {
-        rewriter.setSourceMgr(astContext->getSourceManager(), astContext->getLangOpts());
-    }
+    explicit MyObfVisitor(CompilerInstance *CI); // initialize private members
     virtual bool VisitFunctionDecl(FunctionDecl *);
     virtual bool VisitCallExpr(CallExpr *);
 };
@@ -61,8 +57,6 @@ public:
     // override this to call our ExampleVisitor on each top-level Decl
     virtual bool HandleTopLevelDecl(DeclGroupRef);
 };
-
-
 
 class MyObfFrontendAction : public ASTFrontendAction {
 public:

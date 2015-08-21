@@ -8,7 +8,6 @@
 #include "clang/Frontend/CompilerInstance.h"
 #include "clang/Tooling/CommonOptionsParser.h"
 #include "clang/Tooling/Tooling.h"
-#include "clang/Rewrite/Core/Rewriter.h"
 #include "clang/ASTMatchers/ASTMatchers.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
 #include "clang/Tooling/Refactoring.h"
@@ -73,7 +72,7 @@ int NVO_L1(RefactoringTool &tool){
 
 int NVO_L2(RefactoringTool &tool){
     int result = tool.run(newFrontendActionFactory<MyObfFrontendAction>().get());
-    rewriter.getEditBuffer(rewriter.getSourceMgr().getMainFileID()).write(errs());
+    //rewriter.getEditBuffer(rewriter.getSourceMgr().getMainFileID()).write(errs());
     return result;
 }
 
@@ -91,7 +90,7 @@ int main(int argc, const char **argv) {
     string mainFilePath = rewriter.getSourceMgr().getFilename(mainLoc);
     projPath = mainFilePath.substr(0,mainFilePath.rfind("/"));
 */
-    outs() << "===========PPPPPPPPPPPPPRRRRRRROOOOOOOOPATH="<<projPath<<"\n";
+    outs() << "===========PROJECTPATH="<<projPath<<"=============\n";
 
     srand (time(NULL));
 
@@ -124,12 +123,14 @@ int main(int argc, const char **argv) {
 	    outs() << r.toString() << "\n";
     	}
     }
+
     if(nvoLevel == 9){
     	outs() << "NVO Level:9:TEST:\n";
         NVO_L2(tool);
     	outs() << "Replacements collected by the tool:\n";
+        
     	for (auto &r : tool.getReplacements()) {
-	    outs() << r.toString() << "\n";
+	    //outs() << r.toString() << "\n";
     	}
     }
     return result;

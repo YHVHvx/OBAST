@@ -203,10 +203,6 @@
   /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Tooling/ArgumentsAdjusters.h \
   /home/xuhui/llvm/include/llvm/Option/Option.h \
   /home/xuhui/llvm/include/llvm/Option/OptTable.h \
-  /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Rewrite/Core/Rewriter.h \
-  /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Rewrite/Core/RewriteBuffer.h \
-  /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Rewrite/Core/DeltaTree.h \
-  /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Rewrite/Core/RewriteRope.h \
   /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/ASTMatchers/ASTMatchers.h \
   /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/ASTMatchers/ASTMatchersInternal.h \
   /home/xuhui/llvm/include/llvm/ADT/VariadicFunction.h \
@@ -225,6 +221,10 @@
   /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Lex/Token.h \
   /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Basic/TemplateKinds.h \
   /home/xuhui/llvm/build/tools/clang/tools/nvo/nvo_sha1.h \
+  /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Rewrite/Core/Rewriter.h \
+  /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Rewrite/Core/RewriteBuffer.h \
+  /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Rewrite/Core/DeltaTree.h \
+  /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Rewrite/Core/RewriteRope.h \
   /home/xuhui/llvm/build/tools/clang/tools/nvo/obf_func.h
 
 /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Driver/Options.h:
@@ -631,14 +631,6 @@
 
 /home/xuhui/llvm/include/llvm/Option/OptTable.h:
 
-/home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Rewrite/Core/Rewriter.h:
-
-/home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Rewrite/Core/RewriteBuffer.h:
-
-/home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Rewrite/Core/DeltaTree.h:
-
-/home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Rewrite/Core/RewriteRope.h:
-
 /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/ASTMatchers/ASTMatchers.h:
 
 /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/ASTMatchers/ASTMatchersInternal.h:
@@ -674,5 +666,13 @@
 /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Basic/TemplateKinds.h:
 
 /home/xuhui/llvm/build/tools/clang/tools/nvo/nvo_sha1.h:
+
+/home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Rewrite/Core/Rewriter.h:
+
+/home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Rewrite/Core/RewriteBuffer.h:
+
+/home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Rewrite/Core/DeltaTree.h:
+
+/home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Rewrite/Core/RewriteRope.h:
 
 /home/xuhui/llvm/build/tools/clang/tools/nvo/obf_func.h:

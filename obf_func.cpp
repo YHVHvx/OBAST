@@ -3,6 +3,12 @@
 map<string, string> funcMap;
 Rewriter rewriter;
 
+MyObfVisitor::MyObfVisitor(CompilerInstance *CI) 
+      : astContext(&(CI->getASTContext()))
+    {
+        rewriter.setSourceMgr(astContext->getSourceManager(), astContext->getLangOpts());
+    }
+
 bool MyObfVisitor::VisitFunctionDecl(FunctionDecl *func) {
     string fileName = rewriter.getSourceMgr().getFilename(func->getLocation());
     if (fileName.compare(0,projPath.size(),projPath) != 0){
