@@ -37,6 +37,10 @@ int NVO_L0(RefactoringTool &tool){
     finder.addMatcher(fgenesMatcher, &fgenesCallback);
      
     int result = tool.runAndSave(newFrontendActionFactory(&finder).get());
+
+    SaveGenes(kgenes);
+    SaveGenes(fgenes);
+
     return result;
 }
 

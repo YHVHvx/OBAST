@@ -35,7 +35,9 @@ int SaveFuncMap(){
         
         map<string,string>::iterator it;
         for(it=funcMap.begin();it!=funcMap.end();++it){
-            out<<it->first <<","<<it->second<<endl;
+            if (it->second.size() > 0){
+                out<<it->first <<","<<it->second<<endl;
+            }
         }
         out.close();
     }
@@ -60,28 +62,22 @@ MyObfVisitor::MyObfVisitor(CompilerInstance *CI)
 
 bool MyObfVisitor::VisitFunctionDecl(FunctionDecl *func) {
     string fileName = rewriter.getSourceMgr().getFilename(func->getLocation());
-    if (fileName.compare(0,projPath.size(),projPath) != 0){
+    string funcName = func->getNameInfo().getName().getAsString();
+    if (fileName.compare(0,projPath.size(),projPath) != 0 //system header file
+        ||HasBeenObfuscated(funcName)==true){ //obfuscated function name
         return false;
     }
-    string funcName = func->getNameInfo().getName().getAsString();
     char newName[32];
-    if (funcMap[funcName] != "") {
+    if (funcMap.count(funcName) != 0) {
         sprintf(newName,"%s",funcMap[funcName].c_str());
     }
     else {
-	if(HasBeenObfuscated(funcName)==false){
-            int i;
-            for (i = 0; i < 31; i++){
-                newName[i] = rand()%26 + 65;
-            }
-            funcMap[funcName] = newName;
-	}
-        else
-	    return false;
+        int i;
+        for (i = 0; i < 31; i++){
+            newName[i] = rand()%26 + 65;
+        }
+        funcMap[funcName] = newName;
     }
-
-    //Replacement rep(*sm, charSrcRange, newBody, LangOptions());
-    //replace->insert(rep);
 
     rewriter.ReplaceText(func->getNameInfo().getSourceRange(), newName);
     errs() << "** Rewrote function def: " << funcName << " to " << newName << "in File" << fileName <<"\n";

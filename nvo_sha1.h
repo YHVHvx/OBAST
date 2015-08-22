@@ -35,6 +35,11 @@ extern DeclarationMatcher lo3FuncMatcher;
 extern DeclarationMatcher kgenesMatcher;
 extern DeclarationMatcher fgenesMatcher;
 
+
+extern string fgenes;
+extern string kgenes;
+int SaveGenes(string);
+
 class FBodys{
 private: 
 string fBodys[4];

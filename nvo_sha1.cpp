@@ -1,4 +1,5 @@
 #include "nvo_sha1.h" 
+#include "obf_func.h" 
 
 FBodys loFBodys;
 
@@ -8,6 +9,9 @@ DeclarationMatcher lo2FuncMatcher = functionDecl(hasName("nv_lo2")).bind("nv_lo"
 DeclarationMatcher lo3FuncMatcher = functionDecl(hasName("nv_lo3")).bind("nv_lo");
 DeclarationMatcher kgenesMatcher = varDecl(hasName("kgenes_raw")).bind("kgenes_raw");
 DeclarationMatcher fgenesMatcher = varDecl(hasName("fgenes_raw")).bind("fgenes_raw");
+
+string kgenes;
+string fgenes;
 
 void FBodys::Push(string fBody){
     fBodys[fCounter++] = fBody; 
@@ -45,26 +49,42 @@ void FuncRewriteCallback::run(const MatchFinder::MatchResult &result) {
 
 void KgenesCallback::run(const MatchFinder::MatchResult &Result) {
     const VarDecl* var = Result.Nodes.getDeclAs<clang::VarDecl>("kgenes_raw");
-    string genes =  "uint8_t kgenes_raw[20] = {";
+    string genesDecl =  "uint8_t kgenes_raw[20] = {";
+
+    kgenes = to_string(rand()%256);	
     int i=0;
     for (i=0; i<19; i++){
-	genes = genes + to_string(rand()%256) + ",";	
+	kgenes = kgenes + "," + to_string(rand()%256);	
     }
-    genes = genes + to_string(rand()%256) + "};";	
 
-    Replacement rep(*(Result.SourceManager), var, genes, LangOptions());
+    genesDecl = genesDecl + kgenes + "};";	
+
+    Replacement rep(*(Result.SourceManager), var, genesDecl, LangOptions());
     replace->insert(rep);
 }
 
 void FgenesCallback::run(const MatchFinder::MatchResult &Result) {
     const VarDecl* var = Result.Nodes.getDeclAs<clang::VarDecl>("fgenes_raw");
-    string genes =  "uint8_t fgenes_raw[20] = {";
+    string genesDecl =  "uint8_t fgenes_raw[20] = {";
+    fgenes = to_string(rand()%256);	
     int i=0;
     for (i=0; i<19; i++){
-	genes = genes + to_string(rand()%256) + ",";	
+	fgenes = fgenes + "," + to_string(rand()%256);	
     }
-    genes = genes + to_string(rand()%256) + "};";	
+    genesDecl = genesDecl + fgenes + "};";	
 
-    Replacement rep(*(Result.SourceManager), var, genes, LangOptions());
+    Replacement rep(*(Result.SourceManager), var, genesDecl, LangOptions());
     replace->insert(rep);
+}
+
+int SaveGenes(string genes){
+    int result = 0;
+    string filename = projPath + "/genes.txt";
+    fstream out;
+    out.open(filename,ios::app);
+    if(out.is_open()){
+        out<<genes<<endl;
+        out.close();
+    }
+    return result;
 }
