@@ -29,15 +29,19 @@ using namespace llvm;
 using namespace clang::ast_matchers;
 using namespace clang::ast_matchers::internal;
 
-//extern Rewriter rewriter;
+extern Rewriter rewriter;
 extern string projPath;
+extern map<string, string> funcMap;
+
+int SaveFuncMap();
+int LoadFuncMap();
 
 class MyObfVisitor : public RecursiveASTVisitor<MyObfVisitor> {
 private:
     ASTContext *astContext; // used for getting additional AST info
 
 public:
-    explicit MyObfVisitor(CompilerInstance *CI); // initialize private members
+    explicit MyObfVisitor(CompilerInstance *); 
     virtual bool VisitFunctionDecl(FunctionDecl *);
     virtual bool VisitCallExpr(CallExpr *);
 };

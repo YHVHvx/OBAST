@@ -3,11 +3,60 @@
 map<string, string> funcMap;
 Rewriter rewriter;
 
+int LoadFuncMap(){
+    int result = 0;
+    string filename = projPath + "/tmp.txt";
+    char buffer[128];
+    ifstream in(filename);
+    if(!in.is_open()){
+        outs()<<"Error Loading " << filename << "\n";
+        return -1;
+    }
+    while (!in.eof() )  
+    {  
+        in.getline(buffer,100); 
+        char* oriName = strtok (buffer,","); 
+        char* obfName = strtok (NULL,",");
+        if(obfName!=NULL){
+            funcMap[oriName] = obfName;
+        }
+    }
+        
+    in.close();
+
+    return result;
+}
+
+int SaveFuncMap(){
+    int result = 0;
+    string filename = projPath + "/tmp.txt";
+    ofstream out(filename);
+    if(out.is_open()){
+        
+        map<string,string>::iterator it;
+        for(it=funcMap.begin();it!=funcMap.end();++it){
+            out<<it->first <<","<<it->second<<endl;
+        }
+        out.close();
+    }
+    return result;
+}
+
+bool HasBeenObfuscated(string funcName){
+    map<string,string>::iterator it;
+    for(it=funcMap.begin();it!=funcMap.end();++it){
+        if (funcName.compare(0,funcName.size(),it->second) == 0){
+	    return true;
+	}
+    }
+    return false;
+}
+
 MyObfVisitor::MyObfVisitor(CompilerInstance *CI) 
       : astContext(&(CI->getASTContext()))
-    {
-        rewriter.setSourceMgr(astContext->getSourceManager(), astContext->getLangOpts());
-    }
+{
+    rewriter.setSourceMgr(astContext->getSourceManager(), astContext->getLangOpts());
+}
 
 bool MyObfVisitor::VisitFunctionDecl(FunctionDecl *func) {
     string fileName = rewriter.getSourceMgr().getFilename(func->getLocation());
@@ -19,13 +68,21 @@ bool MyObfVisitor::VisitFunctionDecl(FunctionDecl *func) {
     if (funcMap[funcName] != "") {
         sprintf(newName,"%s",funcMap[funcName].c_str());
     }
-    else{
-        int i;
-        for (i = 0; i < 31; i++){
-            newName[i] = rand()%26 + 65;
-        }
-        funcMap[funcName] = newName;
+    else {
+	if(HasBeenObfuscated(funcName)==false){
+            int i;
+            for (i = 0; i < 31; i++){
+                newName[i] = rand()%26 + 65;
+            }
+            funcMap[funcName] = newName;
+	}
+        else
+	    return false;
     }
+
+    //Replacement rep(*sm, charSrcRange, newBody, LangOptions());
+    //replace->insert(rep);
+
     rewriter.ReplaceText(func->getNameInfo().getSourceRange(), newName);
     errs() << "** Rewrote function def: " << funcName << " to " << newName << "in File" << fileName <<"\n";
     return true;

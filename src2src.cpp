@@ -71,8 +71,14 @@ int NVO_L1(RefactoringTool &tool){
 }
 
 int NVO_L2(RefactoringTool &tool){
+    LoadFuncMap();
     int result = tool.run(newFrontendActionFactory<MyObfFrontendAction>().get());
-    //rewriter.getEditBuffer(rewriter.getSourceMgr().getMainFileID()).write(errs());
+    //SourceLocation srcLoc; 
+    //result = rewriter.getEditBuffer(rewriter.getSourceMgr().getFileID(srcLoc)).write(errs());
+    result = rewriter.overwriteChangedFiles();
+    //outs()<<"NVO_L2 RESULT "<<result<<"\n";
+    SaveFuncMap();
+
     return result;
 }
 
@@ -127,11 +133,6 @@ int main(int argc, const char **argv) {
     if(nvoLevel == 9){
     	outs() << "NVO Level:9:TEST:\n";
         NVO_L2(tool);
-    	outs() << "Replacements collected by the tool:\n";
-        
-    	for (auto &r : tool.getReplacements()) {
-	    //outs() << r.toString() << "\n";
-    	}
     }
     return result;
 }
