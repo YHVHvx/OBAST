@@ -1,7 +1,6 @@
-/home/xuhui/llvm/build/tools/clang/tools/nvo/Release+Asserts/obf_func.o \
-  /home/xuhui/llvm/build/tools/clang/tools/nvo/Release+Asserts/obf_func.d: \
-  obf_func.cpp /home/xuhui/llvm/build/tools/clang/tools/nvo/obf_func.h \
-  /home/xuhui/llvm/build/tools/clang/tools/nvo/utils.h \
+/home/xuhui/llvm/build/tools/clang/tools/nvo/Release+Asserts/utils.o \
+  /home/xuhui/llvm/build/tools/clang/tools/nvo/Release+Asserts/utils.d: \
+  utils.cpp /home/xuhui/llvm/build/tools/clang/tools/nvo/utils.h \
   /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Driver/Options.h \
   /home/xuhui/llvm/build/tools/clang/tools/nvo/../../include/clang/Driver/Options.inc \
   /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/AST/AST.h \
@@ -225,8 +224,6 @@
   /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Lex/MultipleIncludeOpt.h \
   /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Lex/Token.h \
   /home/xuhui/llvm/tools/clang/tools/nvo/../../include/clang/Basic/TemplateKinds.h
-
-/home/xuhui/llvm/build/tools/clang/tools/nvo/obf_func.h:
 
 /home/xuhui/llvm/build/tools/clang/tools/nvo/utils.h:
 

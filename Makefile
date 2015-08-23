@@ -2,7 +2,7 @@ CLANG_LEVEL := ../..
 
 TOOLNAME = nvgen  #the name of your tool's executable
 
-SOURCES := obf_func.cpp nvo_sha1.cpp src2src.cpp  #the Clang source files you want to compile
+SOURCES := utils.cpp obf_func.cpp nvo_sha1.cpp nvo_bridge.cpp src2src.cpp  #the Clang source files you want to compile
 
 include $(CLANG_LEVEL)/../../Makefile.config
 
