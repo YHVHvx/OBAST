@@ -23,8 +23,17 @@
 
 string projPath;
 
+//Command Def
 static llvm::cl::OptionCategory myToolCategory("NVO Source to Source Transformation Tool");
-static cl::opt<int> nvoLevel("L", cl::desc("Specify nvo level"), cl::value_desc("0,1,2"), cl::cat(myToolCategory));
+const char* optDesc = "Obfuscation Type:" 
+		 " --0:JNI Bridge"
+		 " --1:General Obfuscation"
+		 " --2:General N-version Obfuscation"
+        	 " --9:Specific N-version Ofbuscation for SHA1 algorithm";
+static cl::opt<int> obfType("O",
+           cl::desc(optDesc),
+	   cl::value_desc("0,1,2,9"), 
+	   cl::cat(myToolCategory));
 //static cl::extrahelp CommonHelp(CommonOptionsParser::HelpMessage);
 static cl::extrahelp MoreHelp("\n Example Command: nvocomp ~/gadget/sha1.c -L=1 --\n");
 
@@ -39,8 +48,10 @@ int NVO_Genes(RefactoringTool &tool){
      
     int result = tool.runAndSave(newFrontendActionFactory(&finder).get());
 
-    SaveGenes(kgenes);
-    SaveGenes(fgenes);
+    genes80_t realKgenes = AdjustGenes(kgenes);  
+    SaveGenes(realKgenes.genes, 80);
+    genes80_t realFgenes = AdjustGenes(fgenes);  
+    SaveGenes(realFgenes.genes, 80);
 
     return result;
 }
@@ -72,6 +83,10 @@ int NVO_Sha1SubFunc(RefactoringTool &tool){
     finder2.addMatcher(lo3FuncMatcher, &lo3RewriteCallback);
 
     result = tool.runAndSave(newFrontendActionFactory(&finder2).get());
+
+    loFBodys.GetRealOrder();
+    SaveGenes(loFBodys.realOrder, 4);
+
     return result;
 }
 
@@ -118,16 +133,31 @@ int main(int argc, const char **argv) {
     gettimeofday(&t, NULL);
     srand (1000000*t.tv_sec+t.tv_usec);
 
-    if(nvoLevel == 0){
-    	outs() << "NVO Level:0:Pure seed:\n";
+    /*
+    *Used for jni call: The upper layer function name shall not be channged 
+    */
+    if(obfType == 0){
+    	outs() << "Obfuscation Type: Bridge\n";
+        NVO_Bridge(tool);
+    }
+
+    if(obfType == 1){
+    	outs() << "Obfuscation Type: General Obfuscation\n";
+        NVO_FuncName(tool);
+    }
+
+    if(obfType == 2){
+    	outs() << "Obfuscation Type: General N-version Obfuscation\n";
+        NVO_FuncName(tool);
+    }
+
+    if(obfType == 9){
+    	outs() << "Obfuscation Type: Specific N-version Obfuscation for the SHA1 Algorithm\n";
         NVO_Genes(tool);
     	outs() << "Replacements collected by the tool:\n";
     	for (auto &r : tool.getReplacements()) {
 	    outs() << r.toString() << "\n";
     	}
-    }
-
-    if(nvoLevel == 1){
     	outs() << "NVO Level:1:Sha1 sub-function randomness:\n";
         NVO_Sha1SubFunc(tool);
     	outs() << "Replacements collected by the tool:\n";
@@ -136,14 +166,5 @@ int main(int argc, const char **argv) {
     	}
     }
 
-    if(nvoLevel == 2){
-    	outs() << "NVO Level:2:Function name randomness:\n";
-        NVO_FuncName(tool);
-    }
-
-    if(nvoLevel == 9){
-    	outs() << "NVO Level:9:Bridge:\n";
-        NVO_Bridge(tool);
-    }
     return result;
 }

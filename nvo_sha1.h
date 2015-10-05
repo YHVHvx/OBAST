@@ -19,6 +19,7 @@
 #include <fstream>
 #include <sstream>
 #include <time.h>
+#include "utils.h"
 
 using namespace std;
 using namespace clang;
@@ -36,19 +37,27 @@ extern DeclarationMatcher kgenesMatcher;
 extern DeclarationMatcher fgenesMatcher;
 
 
-extern string fgenes;
-extern string kgenes;
-int SaveGenes(string);
+extern uint8_t fgenes[20];
+extern uint8_t kgenes[20];
+int SaveGenes(uint8_t[], int);
+genes80_t AdjustGenes(uint8_t[]);
 
 class FBodys{
+
 private: 
-string fBodys[4];
-int fCounter = 0;
+    string fBodys[4];
+    uint8_t fCounter = 0;
+    uint8_t forder[4];
+
 public:
+    uint8_t realOrder[4];
     FBodys(){}
     void Push(string);
     string RandPull();
+    void GetRealOrder();
 };
+
+extern FBodys loFBodys;
 
 class FuncReadCallback : public MatchFinder::MatchCallback {
 private:
