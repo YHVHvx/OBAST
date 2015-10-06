@@ -19,7 +19,7 @@
 #include <hash_map>
 #include "nvo_sha1.h"
 #include "obf_func.h"
-#include "nvo_bridge.h"
+#include "obf_bridge.h"
 
 string projPath;
 
@@ -90,7 +90,7 @@ int NVO_Sha1SubFunc(RefactoringTool &tool){
     return result;
 }
 
-int NVO_FuncName(RefactoringTool &tool){
+int Obf_FuncName(RefactoringTool &tool){
     LoadFuncMap();
     int result = tool.run(newFrontendActionFactory<MyObfFrontendAction>().get());
     //SourceLocation srcLoc; 
@@ -102,7 +102,7 @@ int NVO_FuncName(RefactoringTool &tool){
     return result;
 }
 
-int NVO_Bridge(RefactoringTool &tool){
+int Obf_Bridge(RefactoringTool &tool){
     LoadFuncMap();
     int result = tool.run(newFrontendActionFactory<MyBridgeFrontendAction>().get());
     result = rewriter.overwriteChangedFiles();
@@ -138,28 +138,24 @@ int main(int argc, const char **argv) {
     */
     if(obfType == 0){
     	outs() << "Obfuscation Type: Bridge\n";
-        NVO_Bridge(tool);
+        Obf_Bridge(tool);
     }
 
     if(obfType == 1){
     	outs() << "Obfuscation Type: General Obfuscation\n";
-        NVO_FuncName(tool);
+        Obf_FuncName(tool);
     }
 
     if(obfType == 2){
     	outs() << "Obfuscation Type: General N-version Obfuscation\n";
-        NVO_FuncName(tool);
     }
 
     if(obfType == 9){
     	outs() << "Obfuscation Type: Specific N-version Obfuscation for the SHA1 Algorithm\n";
+
         NVO_Genes(tool);
-    	outs() << "Replacements collected by the tool:\n";
-    	for (auto &r : tool.getReplacements()) {
-	    outs() << r.toString() << "\n";
-    	}
-    	outs() << "NVO Level:1:Sha1 sub-function randomness:\n";
         NVO_Sha1SubFunc(tool);
+
     	outs() << "Replacements collected by the tool:\n";
     	for (auto &r : tool.getReplacements()) {
 	    outs() << r.toString() << "\n";
