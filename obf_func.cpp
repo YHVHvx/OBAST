@@ -32,13 +32,30 @@ bool MyObfVisitor::VisitFunctionDecl(FunctionDecl *func) {
 }
 
 bool MyObfVisitor::VisitCallExpr(CallExpr *call) {
-    //This line is not compatible with cxx;
-    string funcName = call->getDirectCallee()->getNameInfo().getName().getAsString();
-    string newName;
 
+    FunctionDecl* funcDecl = call->getDirectCallee();
+    string funcName, newName;
+    if(funcDecl != NULL ) {
+        //This is a C function call
+        funcName = funcDecl->getNameInfo().getName().getAsString();
+    }
+    else{
+        //This is a CXX function call
+        ImplicitCastExpr  *imp = dyn_cast<ImplicitCastExpr>(call);
+        if (imp){
+            Expr *sub = imp->getSubExpr();
+            if(sub){
+                DeclRefExpr *def = dyn_cast<DeclRefExpr>(sub);
+                if(def){  
+                    funcName =  def->getFoundDecl()->getName();
+                }
+            }
+        }
+    }
     if (funcName != ""){
         newName = funcMap[funcName];
     }    
+    errs() << "** Rewrote function call\n" << funcName<<" to "<<newName;
     if (newName != ""){
         rewriter.ReplaceText(call->getLocStart(), funcName.length(), newName);
         errs() << "** Rewrote function call\n" << funcName<<" to "<<newName;

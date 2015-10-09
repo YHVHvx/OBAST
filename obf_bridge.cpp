@@ -8,9 +8,25 @@ MyBridgeVisitor::MyBridgeVisitor(CompilerInstance *CI)
 }
 
 bool MyBridgeVisitor::VisitCallExpr(CallExpr *call) {
-    string funcName = call->getDirectCallee()->getNameInfo().getName().getAsString();
-    string newName;
-
+    FunctionDecl* funcDecl = call->getDirectCallee();
+    string funcName, newName;
+    if(funcDecl != NULL ) {
+        //This is a C function call
+        funcName = funcDecl->getNameInfo().getName().getAsString();
+    }
+    else{
+        //This is a CXX function call
+        ImplicitCastExpr  *imp = dyn_cast<ImplicitCastExpr>(call);
+        if (imp){
+            Expr *sub = imp->getSubExpr();
+            if(sub){
+                DeclRefExpr *def = dyn_cast<DeclRefExpr>(sub);
+                if(def){  
+                    funcName =  def->getFoundDecl()->getName();
+                }
+            }
+        }
+    }
     if (funcName != ""){
         newName = funcMap[funcName];
     }    
@@ -20,7 +36,6 @@ bool MyBridgeVisitor::VisitCallExpr(CallExpr *call) {
     }
     return true;
 }
-
 
 void MyBridgeASTConsumer::HandleTranslationUnit(ASTContext &Context) {
     visitor->TraverseDecl(Context.getTranslationUnitDecl());
