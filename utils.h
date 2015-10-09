@@ -38,11 +38,11 @@ int SaveFuncMap();
 int LoadFuncMap();
 bool HasBeenObfuscated(string);
 
-typedef struct genes4_st{
+struct genes4_st{
     uint8_t genes[4];
 };
 
-typedef struct genes80_st{
+struct genes80_st{
     uint8_t genes[80];
 };
 

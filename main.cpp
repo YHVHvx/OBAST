@@ -21,8 +21,10 @@
 #include "obf_func.h"
 #include "obf_bridge.h"
 
-string projPath;
 
+string projPath;
+map<string, string> funcMap;
+Rewriter rewriter;
 //Command Def
 static llvm::cl::OptionCategory myToolCategory("NVO Source to Source Transformation Tool");
 const char* optDesc = "Obfuscation Type:" 
@@ -91,12 +93,13 @@ int NVO_Sha1SubFunc(RefactoringTool &tool){
 }
 
 int Obf_FuncName(RefactoringTool &tool){
+    int result;
     LoadFuncMap();
-    int result = tool.run(newFrontendActionFactory<MyObfFrontendAction>().get());
+    tool.run(newFrontendActionFactory<MyObfFrontendAction>().get());
+    result = rewriter.overwriteChangedFiles();
+    //tool.applyAllReplacements(rewriter);
     //SourceLocation srcLoc; 
     //result = rewriter.getEditBuffer(rewriter.getSourceMgr().getFileID(srcLoc)).write(errs());
-    result = rewriter.overwriteChangedFiles();
-    //outs()<<"NVO_L2 RESULT "<<result<<"\n";
     SaveFuncMap();
 
     return result;
@@ -110,12 +113,11 @@ int Obf_Bridge(RefactoringTool &tool){
     return result;
 }
 
-map<string, string> funcMap;
-Rewriter rewriter;
 
 int main(int argc, const char **argv) {
 
     int result = 0;
+
     CommonOptionsParser op(argc, argv, myToolCategory); 
     vector<string> projPaths = op.getSourcePathList();
     RefactoringTool tool(op.getCompilations(), projPaths);
