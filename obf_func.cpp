@@ -55,7 +55,7 @@ bool MyObfVisitor::VisitCallExpr(CallExpr *call) {
     if (funcName != ""){
         newName = funcMap[funcName];
     }    
-    errs() << "** Rewrote function call\n" << funcName<<" to "<<newName;
+    //errs() << "** Rewrote function call\n" << funcName<<" to "<<newName;
     if (newName != ""){
         rewriter.ReplaceText(call->getLocStart(), funcName.length(), newName);
         errs() << "** Rewrote function call\n" << funcName<<" to "<<newName;
