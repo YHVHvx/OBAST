@@ -32,6 +32,7 @@ bool MyObfVisitor::VisitFunctionDecl(FunctionDecl *func) {
 }
 
 bool MyObfVisitor::VisitCallExpr(CallExpr *call) {
+    //This line is not compatible with cxx;
     string funcName = call->getDirectCallee()->getNameInfo().getName().getAsString();
     string newName;
 

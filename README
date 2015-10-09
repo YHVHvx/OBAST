@@ -1,1 +1,28 @@
-This is the libtooling for NVO source code transformation
+This is a tool for C/C++ source code obfuscation. The tool is based on LLVM and Clang. The following steps are instructions for project environment configuration. This instruction has been verified on Ubuntu 14.0 and Clang 3.7.
+
+==1. Install LLVM and Clang==
+
+$ svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm 
+$ cd llvm/tools 
+$ svn co http://llvm.org/svn/llvm-project/cfe/trunk clang 
+$ cd clang/tools 
+$ svn co http://llvm.org/svn/llvm-project/clang-tools-extra/trunk extra 
+$ cd ../../../.. #go back to top directory 
+$ cd llvm/projects 
+$ svn co http://llvm.org/svn/llvm-project/compiler-rt/trunk compiler-rt 
+$ cd llvm #go back to top directory 
+$ mkdir build 
+$ cd build 
+$ ../configure 
+$ make #this takes a few hours 
+$ sudo make install
+
+==2. Install OBOT==
+$ cd $llvm/tools/clang/tools 
+$ git clone https://github.com/hxuhack/OBOT.git obot
+$ cp obot $llvm/build/tools/clang/tools/ -r
+$ cd $llvm/build/tools/clang/tools/obot
+$ sudo make install
+
+==3. Config Obot==
+
