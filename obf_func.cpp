@@ -1,47 +1,57 @@
-#include "obf_func.h"
+#include "obf_func.h" 
 
+DeclarationMatcher funcDeclMatcher = functionDecl().bind("funcDecl");
+StatementMatcher funcCallMatcher = callExpr().bind("funcCall");
 
-MyObfVisitor::MyObfVisitor(CompilerInstance *CI) 
-      : astContext(&(CI->getASTContext()))
-{
-    rewriter.setSourceMgr(astContext->getSourceManager(), astContext->getLangOpts());
-}
-
-bool MyObfVisitor::VisitFunctionDecl(FunctionDecl *func) {
-    string fileName = rewriter.getSourceMgr().getFilename(func->getLocation());
-    string funcName = func->getNameInfo().getName().getAsString();
+void FuncDeclCallback::run(const MatchFinder::MatchResult &result) {
+    srcMgr = result.SourceManager;
+    const FunctionDecl* funcDecl = result.Nodes.getDeclAs<clang::FunctionDecl>("funcDecl");
+    string fileName = srcMgr->getFilename(funcDecl->getLocation());
+    string funcName = funcDecl->getNameInfo().getName().getAsString();
     if (fileName.compare(0,projPath.size(),projPath) != 0 //system header file
         ||HasBeenObfuscated(funcName)==true){ //obfuscated function name
-        return false;
+        return ;
     }
-    char newName[32];
+    char newName[24];
+    string strNewName;
     if (funcMap.count(funcName) != 0) {
         sprintf(newName,"%s",funcMap[funcName].c_str());
     }
     else {
         int i;
-        for (i = 0; i < 31; i++){
+        for (i = 0; i < 24; i++){
             newName[i] = rand()%26 + 65;
         }
-        funcMap[funcName] = newName;
+        strNewName = newName;
+        funcMap[funcName] = strNewName;
     }
-
-    rewriter.ReplaceText(func->getNameInfo().getSourceRange(), newName);
-    errs() << "** Rewrote function def: " << funcName << " to " << newName << "in File" << fileName <<"\n";
-    return true;
+    
+    SourceRange srcRange = funcDecl->getNameInfo().getSourceRange();
+    CharSourceRange charSrcRange = CharSourceRange::getTokenRange(srcRange);
+    Replacement rep(*srcMgr, charSrcRange, strNewName, LangOptions());
+    replace->insert(rep);
 }
 
-bool MyObfVisitor::VisitCallExpr(CallExpr *call) {
+void FuncCallCallback::run(const MatchFinder::MatchResult &result) {
+    srcMgr = result.SourceManager;
+    const CallExpr* call = result.Nodes.getDeclAs<clang::CallExpr>("funcCall");
 
-    FunctionDecl* funcDecl = call->getDirectCallee();
+    string fileName = srcMgr->getFilename(funcDecl->getLocation());
+    if (fileName.compare(projPath.size(),fileName.size(),"obf_bridge.cpp") == 0){ 
+        //the bridge file
+        return ;
+    }
+    const FunctionDecl* funcDecl = call->getDirectCallee();
     string funcName, newName;
+
     if(funcDecl != NULL ) {
         //This is a C function call
         funcName = funcDecl->getNameInfo().getName().getAsString();
     }
     else{
+/*
         //This is a CXX function call
-        ImplicitCastExpr  *imp = dyn_cast<ImplicitCastExpr>(call);
+        ImplicitCastExpr *imp = dyn_cast<ImplicitCastExpr>(call);
         if (imp){
             Expr *sub = imp->getSubExpr();
             if(sub){
@@ -51,33 +61,19 @@ bool MyObfVisitor::VisitCallExpr(CallExpr *call) {
                 }
             }
         }
+*/
     }
     if (funcName != ""){
         newName = funcMap[funcName];
     }    
     //errs() << "** Rewrote function call\n" << funcName<<" to "<<newName;
     if (newName != ""){
-        rewriter.ReplaceText(call->getLocStart(), funcName.length(), newName);
-        errs() << "** Rewrote function call\n" << funcName<<" to "<<newName;
+        SourceLocation srcBegin = call->getLocStart();
+        SourceLocation srcEnd= call->getLocEnd();
+        CharSourceRange charSrcRange = CharSourceRange::getTokenRange(srcBegin,srcEnd);
+        Replacement rep(*srcMgr, charSrcRange, newName, LangOptions());
+        replace->insert(rep);
+        outs() << "** Rewrote function call\n" << funcName<<" to "<<newName;
     }
-    return true;
-}
-
-
-
-void MyObfASTConsumer::HandleTranslationUnit(ASTContext &Context) {
-    visitor->TraverseDecl(Context.getTranslationUnitDecl());
-}
-
-
-bool MyObfASTConsumer::HandleTopLevelDecl(DeclGroupRef DG) {
-    for (DeclGroupRef::iterator i = DG.begin(), e = DG.end(); i != e; i++) {
-        Decl *D = *i;    
-        visitor->TraverseDecl(D); // recursively visit each AST node in Decl "D"
-    }
-    return true;
-}
-
-std::unique_ptr<clang::ASTConsumer> MyObfFrontendAction::CreateASTConsumer(CompilerInstance &CI, StringRef file) {
-    return std::unique_ptr<clang::ASTConsumer>(new MyObfASTConsumer(&CI)); // pass CI pointer to ASTConsumer
+    
 }

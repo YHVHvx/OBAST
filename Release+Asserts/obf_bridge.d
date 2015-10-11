@@ -1,7 +1,7 @@
 /home/xuhui/llvm/build/tools/clang/tools/obot/Release+Asserts/obf_bridge.o \
   /home/xuhui/llvm/build/tools/clang/tools/obot/Release+Asserts/obf_bridge.d: \
-  obf_bridge.cpp \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/obf_bridge.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/obf_bridge.cpp \
+  /home/xuhui/llvm/tools/clang/tools/obot/obf_bridge.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Options.h \
   /home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/Driver/Options.inc \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/AST.h \
@@ -225,9 +225,9 @@
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/MultipleIncludeOpt.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/Token.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/TemplateKinds.h \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/utils.h
+  /home/xuhui/llvm/tools/clang/tools/obot/utils.h
 
-/home/xuhui/llvm/build/tools/clang/tools/obot/obf_bridge.h:
+/home/xuhui/llvm/tools/clang/tools/obot/obf_bridge.h:
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Options.h:
 
@@ -675,4 +675,4 @@
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/TemplateKinds.h:
 
-/home/xuhui/llvm/build/tools/clang/tools/obot/utils.h:
+/home/xuhui/llvm/tools/clang/tools/obot/utils.h:

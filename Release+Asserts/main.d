@@ -227,7 +227,8 @@
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteRope.h \
   /home/xuhui/llvm/build/tools/clang/tools/obot/utils.h \
   /home/xuhui/llvm/build/tools/clang/tools/obot/obf_func.h \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/obf_bridge.h
+  /home/xuhui/llvm/tools/clang/tools/obot/obf_bridge.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/utils.h
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Options.h:
 
@@ -681,4 +682,6 @@
 
 /home/xuhui/llvm/build/tools/clang/tools/obot/obf_func.h:
 
-/home/xuhui/llvm/build/tools/clang/tools/obot/obf_bridge.h:
+/home/xuhui/llvm/tools/clang/tools/obot/obf_bridge.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/utils.h:
