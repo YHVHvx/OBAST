@@ -1,6 +1,6 @@
-/home/xuhui/llvm/build/tools/clang/tools/obot/Release+Asserts/nvo_sha1.o \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/Release+Asserts/nvo_sha1.d: \
-  nvo_sha1.cpp /home/xuhui/llvm/build/tools/clang/tools/obot/nvo_sha1.h \
+/home/xuhui/llvm/build/tools/clang/tools/obot/Release+Asserts/case/utils.o \
+  /home/xuhui/llvm/build/tools/clang/tools/obot/Release+Asserts/case/utils.d: \
+  case/utils.cpp case/utils.h case/nvo_sha1.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Options.h \
   /home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/Driver/Options.inc \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/AST.h \
@@ -223,11 +223,11 @@
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/PreprocessorLexer.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/MultipleIncludeOpt.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/Token.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/TemplateKinds.h \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/utils.h \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/obf_func.h
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/TemplateKinds.h
 
-/home/xuhui/llvm/build/tools/clang/tools/obot/nvo_sha1.h:
+case/utils.h:
+
+case/nvo_sha1.h:
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Options.h:
 
@@ -674,7 +674,3 @@
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/Token.h:
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/TemplateKinds.h:
-
-/home/xuhui/llvm/build/tools/clang/tools/obot/utils.h:
-
-/home/xuhui/llvm/build/tools/clang/tools/obot/obf_func.h:

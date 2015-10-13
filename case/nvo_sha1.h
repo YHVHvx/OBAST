@@ -19,7 +19,6 @@
 #include <fstream>
 #include <sstream>
 #include <time.h>
-#include "utils.h"
 
 using namespace std;
 using namespace clang;
@@ -29,6 +28,7 @@ using namespace llvm;
 using namespace clang::ast_matchers;
 using namespace clang::ast_matchers::internal;
 
+
 extern DeclarationMatcher lo0FuncMatcher;
 extern DeclarationMatcher lo1FuncMatcher;
 extern DeclarationMatcher lo2FuncMatcher;
@@ -36,11 +36,6 @@ extern DeclarationMatcher lo3FuncMatcher;
 extern DeclarationMatcher kgenesMatcher;
 extern DeclarationMatcher fgenesMatcher;
 
-
-extern uint8_t fgenes[20];
-extern uint8_t kgenes[20];
-int SaveGenes(uint8_t[], int);
-genes80_t AdjustGenes(uint8_t[]);
 
 class FBodys{
 
@@ -57,7 +52,6 @@ public:
     void GetRealOrder();
 };
 
-extern FBodys loFBodys;
 
 class FuncReadCallback : public MatchFinder::MatchCallback {
 private:

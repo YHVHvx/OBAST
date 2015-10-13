@@ -1,4 +1,4 @@
-#include "obf_func.h" 
+#include "obf_func_name.h" 
 
 DeclarationMatcher funcDeclMatcher = functionDecl().bind("funcDecl");
 StatementMatcher funcCallMatcher = callExpr().bind("funcCall");

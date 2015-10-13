@@ -1,6 +1,6 @@
-/home/xuhui/llvm/build/tools/clang/tools/obot/Release+Asserts/utils.o \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/Release+Asserts/utils.d: \
-  utils.cpp /home/xuhui/llvm/build/tools/clang/tools/obot/utils.h \
+/home/xuhui/llvm/build/tools/clang/tools/obot/Release+Asserts/obfuscator/utils.o \
+  /home/xuhui/llvm/build/tools/clang/tools/obot/Release+Asserts/obfuscator/utils.d: \
+  obfuscator/utils.cpp obfuscator/utils.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Options.h \
   /home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/Driver/Options.inc \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/AST.h \
@@ -225,7 +225,7 @@
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/Token.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/TemplateKinds.h
 
-/home/xuhui/llvm/build/tools/clang/tools/obot/utils.h:
+obfuscator/utils.h:
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Options.h:
 

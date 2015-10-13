@@ -1,5 +1,4 @@
 #include "nvo_sha1.h" 
-#include "obf_func.h" 
 
 FBodys loFBodys;
 
@@ -98,34 +97,3 @@ void FgenesCallback::run(const MatchFinder::MatchResult &Result) {
     replace->insert(rep);
 }
 
-genes80_t AdjustGenes(uint8_t genes[]){
-
-    genes80_t genesBits = BitstoGenes(genes);
-/*
-    int fOrder[4];
-    int i;    
-    for(i=0;i<80;i++){
-        genesBits.genes[i] = fOrder[genesBits.genes[i]];
-    }
-i*/
-    return genesBits;
-}
-
-int SaveGenes(uint8_t genes[], int genSize){
-
-    int result = 0;
-    string filename = projPath + "/genes.txt";
-
-    int i = 0;
-    string strGenes;
-    for(i=0;i<genSize;i++){
-        strGenes = strGenes + to_string(genes[i]);
-    }
-    fstream out;
-    out.open(filename,ios::app);
-    if(out.is_open()){
-        out<<strGenes<<endl;
-        out.close();
-    }
-    return result;
-}

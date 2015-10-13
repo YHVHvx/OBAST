@@ -17,18 +17,20 @@
 #include <sstream>
 #include <sys/time.h>
 #include <hash_map>
-#include "nvo_sha1.h"
-#include "obf_func.h"
-#include "obf_bridge.h"
+#include "case/nvo_sha1.h"
+#include "case/utils.h"
+#include "obfuscator/utils.h"
+#include "obfuscator/obf_func_name.h"
+#include "obfuscator/obf_cfg.h"
 
 
 string projPath;
 map<string, string> funcMap;
-Rewriter rewriter;
+
 //Command Def
 static llvm::cl::OptionCategory myToolCategory("NVO Source to Source Transformation Tool");
 const char* optDesc = "Obfuscation Type:" 
-		 " --0:JNI Bridge"
+		 " --0:RESERVED"
 		 " --1:General Obfuscation"
 		 " --2:General N-version Obfuscation"
         	 " --9:Specific N-version Ofbuscation for SHA1 algorithm";
@@ -49,11 +51,7 @@ int NVO_Genes(RefactoringTool &tool){
     finder.addMatcher(fgenesMatcher, &fgenesCallback);
      
     int result = tool.runAndSave(newFrontendActionFactory(&finder).get());
-
-    genes80_t realKgenes = AdjustGenes(kgenes);  
-    SaveGenes(realKgenes.genes, 80);
-    genes80_t realFgenes = AdjustGenes(fgenes);  
-    SaveGenes(realFgenes.genes, 80);
+    SaveGenes();
 
     return result;
 }
@@ -85,16 +83,13 @@ int NVO_Sha1SubFunc(RefactoringTool &tool){
     finder2.addMatcher(lo3FuncMatcher, &lo3RewriteCallback);
 
     result = tool.runAndSave(newFrontendActionFactory(&finder2).get());
-
-    loFBodys.GetRealOrder();
-    SaveGenes(loFBodys.realOrder, 4);
+    SaveFuncOrder();
 
     return result;
 }
 
 int Obf_FuncName(RefactoringTool &tool){
     int result = 0;
-    LoadFuncMap();
     
     FuncDeclCallback funcDeclCbk(&tool.getReplacements());
     FuncCallCallback funcCallCbk(&tool.getReplacements());
@@ -107,19 +102,6 @@ int Obf_FuncName(RefactoringTool &tool){
 
     return result;
 }
-
-int Obf_Bridge(RefactoringTool &tool){
-    int result = 0;
-    LoadFuncMap();
-    
-    FuncDeclCallback funcDeclCbk(&tool.getReplacements());
-    MatchFinder finder;
-    finder.addMatcher(funcDeclMatcher, &funcDeclCbk);
-    tool.runAndSave(newFrontendActionFactory(&finder).get());
-
-    return result;
-}
-
 
 int main(int argc, const char **argv) {
 
@@ -139,8 +121,7 @@ int main(int argc, const char **argv) {
     *Used for jni call: The upper layer function name shall not be channged 
     */
     if(obfType == 0){
-    	outs() << "Obfuscation Type: Bridge\n";
-        Obf_Bridge(tool);
+    	outs() << "TOBE IMPLEMENTED\n";
     }
 
     if(obfType == 1){

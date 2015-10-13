@@ -2,7 +2,9 @@ CLANG_LEVEL := ../..
 
 TOOLNAME = obot  #the name of your tool's executable
 
-SOURCES := utils.cpp obf_func.cpp nvo_sha1.cpp obf_bridge.cpp main.cpp  #the Clang source files you want to compile
+SOURCES := obfuscator/obf_func_name.cpp obfuscator/obf_cfg.cpp obfuscator/utils.h \
+           case/nvo_sha1.cpp case/utils.h \
+           main.cpp  #the Clang source files you want to compile
 
 include $(CLANG_LEVEL)/../../Makefile.config
 
