@@ -9,13 +9,15 @@ void FuncDeclCallback::run(const MatchFinder::MatchResult &result) {
     string fileName = srcMgr->getFilename(funcDecl->getLocation());
     string funcName = funcDecl->getNameInfo().getName().getAsString();
     if (fileName.compare(0,projPath.size(),projPath) != 0 //system header file
+        ||fileName.find("obf_bridge") != string::npos
         ||HasBeenObfuscated(funcName)==true){ //obfuscated function name
         return ;
     }
     char newName[24];
     string strNewName;
     if (funcMap.count(funcName) != 0) {
-        sprintf(newName,"%s",funcMap[funcName].c_str());
+        //sprintf(newName,"%s",funcMap[funcName].c_str());
+        strNewName = funcMap[funcName];
     }
     else {
         int i;
@@ -30,17 +32,13 @@ void FuncDeclCallback::run(const MatchFinder::MatchResult &result) {
     CharSourceRange charSrcRange = CharSourceRange::getTokenRange(srcRange);
     Replacement rep(*srcMgr, charSrcRange, strNewName, LangOptions());
     replace->insert(rep);
+    outs() << "Replace FunctionDecl: " << funcName << " to " << strNewName << "\n";
 }
 
 void FuncCallCallback::run(const MatchFinder::MatchResult &result) {
     srcMgr = result.SourceManager;
     const CallExpr* call = result.Nodes.getDeclAs<clang::CallExpr>("funcCall");
 
-    string fileName = srcMgr->getFilename(funcDecl->getLocation());
-    if (fileName.compare(projPath.size(),fileName.size(),"obf_bridge.cpp") == 0){ 
-        //the bridge file
-        return ;
-    }
     const FunctionDecl* funcDecl = call->getDirectCallee();
     string funcName, newName;
 
@@ -63,15 +61,14 @@ void FuncCallCallback::run(const MatchFinder::MatchResult &result) {
         }
 */
     }
+
     if (funcName != ""){
         newName = funcMap[funcName];
     }    
     //errs() << "** Rewrote function call\n" << funcName<<" to "<<newName;
     if (newName != ""){
-        SourceLocation srcBegin = call->getLocStart();
-        SourceLocation srcEnd= call->getLocEnd();
-        CharSourceRange charSrcRange = CharSourceRange::getTokenRange(srcBegin,srcEnd);
-        Replacement rep(*srcMgr, charSrcRange, newName, LangOptions());
+        SourceLocation srcStart = call->getLocStart();
+        Replacement rep(*srcMgr, srcStart, funcName.length(), newName);
         replace->insert(rep);
         outs() << "** Rewrote function call\n" << funcName<<" to "<<newName;
     }
