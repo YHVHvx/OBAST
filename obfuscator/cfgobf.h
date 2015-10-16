@@ -1,5 +1,4 @@
-#ifndef __OBF_UTILS_H__
-#define __OBF_UTILS_H__
+#pragma once
 
 #include "clang/Driver/Options.h"
 #include "clang/AST/AST.h"
@@ -11,7 +10,6 @@
 #include "clang/Frontend/CompilerInstance.h"
 #include "clang/Tooling/CommonOptionsParser.h"
 #include "clang/Tooling/Tooling.h"
-#include "clang/Rewrite/Core/Rewriter.h"
 #include "clang/ASTMatchers/ASTMatchers.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
 #include "clang/Tooling/Refactoring.h"
@@ -19,8 +17,9 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <vector>
 #include <time.h>
-#include <hash_map>
+#include "utils.h"
 
 using namespace std;
 using namespace clang;
@@ -30,12 +29,13 @@ using namespace llvm;
 using namespace clang::ast_matchers;
 using namespace clang::ast_matchers::internal;
 
-extern string projPath;
-extern map<string, string> funcMap;
+extern StatementMatcher stmtCallMatcher;
 
-int SaveFuncMap();
-bool HasBeenObfuscated(string);
-bool IsDeclStmt(const Stmt*);
-bool IsReturnStmt(const Stmt*);
-
-#endif
+class StmtCallback : public MatchFinder::MatchCallback {
+private:
+  Replacements* replace;
+  const SourceManager* srcMgr; 
+public :
+  StmtCallback(Replacements* replace):replace(replace){};
+  virtual void run(const MatchFinder::MatchResult &); 
+};

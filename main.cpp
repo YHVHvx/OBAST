@@ -20,12 +20,14 @@
 #include "case/nvo_sha1.h"
 #include "case/utils.h"
 #include "obfuscator/utils.h"
-#include "obfuscator/obf_func_name.h"
-#include "obfuscator/obf_cfg.h"
+#include "obfuscator/funcobf.h"
+#include "obfuscator/cfgobf.h"
+#include "obfuscator/varobf.h"
 
 
 string projPath;
 map<string, string> funcMap;
+map<string, string> varMap;
 
 //Command Def
 static llvm::cl::OptionCategory myToolCategory("NVO Source to Source Transformation Tool");
@@ -103,6 +105,20 @@ int Obf_FuncName(RefactoringTool &tool){
     return result;
 }
 
+int Obf_VarName(RefactoringTool &tool){
+    int result = 0;
+    
+    VarDeclCallback varDeclCbk(&tool.getReplacements());
+    VarRefCallback varRefCbk(&tool.getReplacements());
+    MatchFinder finder;
+    finder.addMatcher(varDeclMatcher, &varDeclCbk);
+    finder.addMatcher(varRefMatcher, &varRefCbk);
+
+    tool.runAndSave(newFrontendActionFactory(&finder).get());
+//    SaveVarMap();
+    return result;
+}
+
 int main(int argc, const char **argv) {
 
     int result = 0;
@@ -122,11 +138,13 @@ int main(int argc, const char **argv) {
     */
     if(obfType == 0){
     	outs() << "TOBE IMPLEMENTED\n";
+        Obf_VarName(tool);
     }
 
     if(obfType == 1){
     	outs() << "Obfuscation Type: General Obfuscation\n";
         Obf_FuncName(tool);
+        //Obf_VarName(tool);
     }
 
     if(obfType == 2){

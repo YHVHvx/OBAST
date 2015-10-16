@@ -26,3 +26,18 @@ bool HasBeenObfuscated(string funcName){
     }
     return false;
 }
+bool IsDeclStmt(const Stmt* stmt){
+    const char* stmtName = stmt->getStmtClassName();
+    const char* strDeclStmt = "declStmt";
+    if(strstr(strDeclStmt,stmtName)){
+       return true;
+    }
+}
+
+bool IsReturnStmt(const Stmt* stmt){ 
+    const char* stmtName = stmt->getStmtClassName();
+    const char* strRetStmt = "returnStmt";
+    if(strstr(strRetStmt,stmtName)){
+        return true;
+    }
+}

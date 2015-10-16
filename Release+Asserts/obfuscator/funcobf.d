@@ -1,6 +1,6 @@
-/home/xuhui/llvm/build/tools/clang/tools/obot/Release+Asserts/main.o \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/Release+Asserts/main.d: \
-  main.cpp \
+/home/xuhui/llvm/build/tools/clang/tools/obot/Release+Asserts/obfuscator/funcobf.o \
+  /home/xuhui/llvm/build/tools/clang/tools/obot/Release+Asserts/obfuscator/funcobf.d: \
+  obfuscator/funcobf.cpp obfuscator/funcobf.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Options.h \
   /home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/Driver/Options.inc \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/AST.h \
@@ -203,6 +203,10 @@
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Tooling/ArgumentsAdjusters.h \
   /home/xuhui/llvm/include/llvm/Option/Option.h \
   /home/xuhui/llvm/include/llvm/Option/OptTable.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/Rewriter.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteBuffer.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/DeltaTree.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteRope.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/ASTMatchers/ASTMatchers.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/ASTMatchers/ASTMatchersInternal.h \
   /home/xuhui/llvm/include/llvm/ADT/VariadicFunction.h \
@@ -220,16 +224,9 @@
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/MultipleIncludeOpt.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/Token.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/TemplateKinds.h \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/case/nvo_sha1.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/Rewriter.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteBuffer.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/DeltaTree.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteRope.h \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/case/utils.h \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/obfuscator/utils.h \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/obfuscator/funcobf.h \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/obfuscator/cfgobf.h \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/obfuscator/varobf.h
+  obfuscator/utils.h
+
+obfuscator/funcobf.h:
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Options.h:
 
@@ -635,6 +632,14 @@
 
 /home/xuhui/llvm/include/llvm/Option/OptTable.h:
 
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/Rewriter.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteBuffer.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/DeltaTree.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteRope.h:
+
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/ASTMatchers/ASTMatchers.h:
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/ASTMatchers/ASTMatchersInternal.h:
@@ -669,22 +674,4 @@
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/TemplateKinds.h:
 
-/home/xuhui/llvm/build/tools/clang/tools/obot/case/nvo_sha1.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/Rewriter.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteBuffer.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/DeltaTree.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteRope.h:
-
-/home/xuhui/llvm/build/tools/clang/tools/obot/case/utils.h:
-
-/home/xuhui/llvm/build/tools/clang/tools/obot/obfuscator/utils.h:
-
-/home/xuhui/llvm/build/tools/clang/tools/obot/obfuscator/funcobf.h:
-
-/home/xuhui/llvm/build/tools/clang/tools/obot/obfuscator/cfgobf.h:
-
-/home/xuhui/llvm/build/tools/clang/tools/obot/obfuscator/varobf.h:
+obfuscator/utils.h:

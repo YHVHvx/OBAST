@@ -1,4 +1,4 @@
-#include "obf_func_name.h" 
+#include "funcobf.h" 
 
 DeclarationMatcher funcDeclMatcher = functionDecl().bind("funcDecl");
 StatementMatcher funcCallMatcher = callExpr().bind("funcCall");
@@ -13,26 +13,26 @@ void FuncDeclCallback::run(const MatchFinder::MatchResult &result) {
         ||HasBeenObfuscated(funcName)==true){ //obfuscated function name
         return ;
     }
-    char newName[24];
-    string strNewName;
+    string newName;
     if (funcMap.count(funcName) != 0) {
         //sprintf(newName,"%s",funcMap[funcName].c_str());
-        strNewName = funcMap[funcName];
+        newName = funcMap[funcName];
     }
     else {
         int i;
+        //Shorter than this may trigger LVMM bugs
         for (i = 0; i < 24; i++){
-            newName[i] = rand()%26 + 65;
+            char tmpChar = rand()%26 + 65;
+            newName = newName + tmpChar;
         }
-        strNewName = newName;
-        funcMap[funcName] = strNewName;
+        funcMap[funcName] = newName;
     }
     
     SourceRange srcRange = funcDecl->getNameInfo().getSourceRange();
     CharSourceRange charSrcRange = CharSourceRange::getTokenRange(srcRange);
-    Replacement rep(*srcMgr, charSrcRange, strNewName, LangOptions());
+    Replacement rep(*srcMgr, charSrcRange, newName, LangOptions());
     replace->insert(rep);
-    outs() << "Replace FunctionDecl: " << funcName << " to " << strNewName << "\n";
+    outs() << "Replace FunctionDecl: " << funcName << " to " << newName << "\n";
 }
 
 void FuncCallCallback::run(const MatchFinder::MatchResult &result) {

@@ -10,6 +10,7 @@
 #include "clang/Frontend/CompilerInstance.h"
 #include "clang/Tooling/CommonOptionsParser.h"
 #include "clang/Tooling/Tooling.h"
+#include "clang/Rewrite/Core/Rewriter.h"
 #include "clang/ASTMatchers/ASTMatchers.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
 #include "clang/Tooling/Refactoring.h"
@@ -28,13 +29,24 @@ using namespace llvm;
 using namespace clang::ast_matchers;
 using namespace clang::ast_matchers::internal;
 
-extern StatementMatcher stmtCallMatcher;
+extern DeclarationMatcher varDeclMatcher;
+extern StatementMatcher varRefMatcher;
+extern map<string,string> varMap;
 
-class StmtCallback : public MatchFinder::MatchCallback {
+class VarDeclCallback : public MatchFinder::MatchCallback {
 private:
   Replacements* replace;
   const SourceManager* srcMgr; 
 public :
-  StmtCallback(Replacements* replace):replace(replace){};
+  VarDeclCallback(Replacements* replace):replace(replace){};
   virtual void run(const MatchFinder::MatchResult &); 
+};
+
+class VarRefCallback : public MatchFinder::MatchCallback {
+private:
+  Replacements* replace;
+  const SourceManager* srcMgr; 
+public :
+  VarRefCallback(Replacements* replace):replace(replace){};
+  virtual void run(const MatchFinder::MatchResult &);
 };
