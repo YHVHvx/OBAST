@@ -27,11 +27,30 @@ void VarDeclCallback::run(const MatchFinder::MatchResult &result) {
         }
         varMap[varName] = newName;
     }
-    
-    SourceLocation varLoc = varDecl->getInnerLocStart();
+    //varDecl->dump();
+    /*Obfuscate the declarations*/ 
+    SourceLocation varLoc = varDecl->getLocation();//getLocation() start from the variable name
     Replacement rep(*srcMgr, varLoc, varName.length(), newName);
     replace->insert(rep);
     outs() << "Replace VarDecl: " << varName << " to " << newName << "\n";
+    
+/*
+    //Obfuscate the initialization
+    if(varDecl->hasInit()){
+        SourceLocation initLoc = varDecl->getInit()->getExprLoc();
+        Replacement rep(*srcMgr, initLoc, varName.length(), newName);
+        replace->insert(rep);
+        outs() << "Replace Variable Init: " << varName << " to " << newName << "\n";
+    }
+    //Obfuscate the definition
+    const VarDecl* varDef = varDecl->getDefinition();
+    if(varDef != NULL){
+        SourceLocation defLoc = varDef->getLocation();
+        Replacement rep(*srcMgr, defLoc, varName.length(), newName);
+        replace->insert(rep);
+        outs() << "Replace Variable Definition: " << varName << " to " << newName << "\n";
+    }
+    */
 }
 
 void VarRefCallback::run(const MatchFinder::MatchResult &result) {
@@ -44,13 +63,13 @@ void VarRefCallback::run(const MatchFinder::MatchResult &result) {
 
     //TODO:
     if (varName != ""){
-        newName = funcMap[varName];
+        newName = varMap[varName];
     }    
 
     if (newName != ""){
         SourceLocation srcStart = declRefExpr->getLocStart();
         Replacement rep(*srcMgr, srcStart, varName.length(), newName);
         replace->insert(rep);
-        outs() << "** Rewrote function call\n" << varName<<" to "<<newName;
+        outs() << "** Rewrote VarDeclRef\n" << varName<<" to "<<newName;
     }
 }
