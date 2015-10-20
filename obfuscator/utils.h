@@ -37,5 +37,6 @@ int SaveFuncMap();
 bool HasBeenObfuscated(string);
 bool IsDeclStmt(const Stmt*);
 bool IsReturnStmt(const Stmt*);
+bool IsCXXForRangeStmt(const VarDecl*);
 
 #endif

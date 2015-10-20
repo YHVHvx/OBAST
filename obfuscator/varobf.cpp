@@ -14,6 +14,9 @@ void VarDeclCallback::run(const MatchFinder::MatchResult &result) {
     }
     //TODO:Variable Domain
 
+    if(IsCXXForRangeStmt(varDecl)){
+	return;
+    }
     string newName;
     if (varMap.count(varName) != 0) {
         //sprintf(newName,"%s",funcMap[funcName].c_str());
@@ -70,6 +73,6 @@ void VarRefCallback::run(const MatchFinder::MatchResult &result) {
         SourceLocation srcStart = declRefExpr->getLocStart();
         Replacement rep(*srcMgr, srcStart, varName.length(), newName);
         replace->insert(rep);
-        outs() << "** Rewrote VarDeclRef\n" << varName<<" to "<<newName;
+        outs() << "** Rewrote VarDeclRef: " << varName<<" to "<<newName << "\n";
     }
 }

@@ -32,6 +32,7 @@ bool IsDeclStmt(const Stmt* stmt){
     if(strstr(strDeclStmt,stmtName)){
        return true;
     }
+    return false;
 }
 
 bool IsReturnStmt(const Stmt* stmt){ 
@@ -40,4 +41,15 @@ bool IsReturnStmt(const Stmt* stmt){
     if(strstr(strRetStmt,stmtName)){
         return true;
     }
+    return false;
+}
+
+bool IsCXXForRangeStmt(const VarDecl* varDecl){
+    const char* varName = varDecl->getNameAsString().c_str();
+    if(strstr(varName,"__range")
+	||strstr(varName,"__begin")
+        ||strstr(varName,"__end")){
+	return true;
+    }
+    return false;
 }
