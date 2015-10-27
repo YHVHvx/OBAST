@@ -22,21 +22,13 @@
 #include <time.h>
 #include <hash_map>
 
-using namespace std;
-using namespace clang;
-using namespace clang::driver;
-using namespace clang::tooling;
-using namespace llvm;
-using namespace clang::ast_matchers;
-using namespace clang::ast_matchers::internal;
-
-extern string projPath;
-extern map<string, string> funcMap;
+extern std::string projPath;
+extern std::map<std::string, std::string> funcMap;
 
 int SaveFuncMap();
-bool HasBeenObfuscated(string);
-bool IsDeclStmt(const Stmt*);
-bool IsReturnStmt(const Stmt*);
-bool IsCXXForRangeStmt(const VarDecl*);
+bool HasBeenObfuscated(std::string);
+bool IsDeclStmt(const clang::Stmt*);
+bool IsReturnStmt(const clang::Stmt*);
+bool IsCXXForRangeStmt(const clang::VarDecl*);
 
 #endif

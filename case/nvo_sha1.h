@@ -20,69 +20,61 @@
 #include <sstream>
 #include <time.h>
 
-using namespace std;
-using namespace clang;
-using namespace clang::driver;
-using namespace clang::tooling;
-using namespace llvm;
-using namespace clang::ast_matchers;
-using namespace clang::ast_matchers::internal;
 
-
-extern DeclarationMatcher lo0FuncMatcher;
-extern DeclarationMatcher lo1FuncMatcher;
-extern DeclarationMatcher lo2FuncMatcher;
-extern DeclarationMatcher lo3FuncMatcher;
-extern DeclarationMatcher kgenesMatcher;
-extern DeclarationMatcher fgenesMatcher;
+extern clang::ast_matchers::DeclarationMatcher lo0FuncMatcher;
+extern clang::ast_matchers::DeclarationMatcher lo1FuncMatcher;
+extern clang::ast_matchers::DeclarationMatcher lo2FuncMatcher;
+extern clang::ast_matchers::DeclarationMatcher lo3FuncMatcher;
+extern clang::ast_matchers::DeclarationMatcher kgenesMatcher;
+extern clang::ast_matchers::DeclarationMatcher fgenesMatcher;
 
 
 class FBodys{
 
 private: 
-    string fBodys[4];
+    std::string fBodys[4];
     uint8_t fCounter = 0;
     uint8_t forder[4];
 
 public:
     uint8_t realOrder[4];
     FBodys(){}
-    void Push(string);
-    string RandPull();
+    void Push(std::string);
+    std::string RandPull();
     void GetRealOrder();
 };
 
 
-class FuncReadCallback : public MatchFinder::MatchCallback {
+class FuncReadCallback : public clang::ast_matchers::MatchFinder::MatchCallback {
 private:
-  Replacements* replace;
-  const SourceManager* sm; 
+  clang::tooling::Replacements* replace;
+  const clang::SourceManager* sm; 
 public :
-  FuncReadCallback(Replacements* replace):replace(replace){};
-  virtual void run(const MatchFinder::MatchResult &); 
+  FuncReadCallback(clang::tooling::Replacements* replace):replace(replace){};
+  virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &); 
 };
 
-class FuncRewriteCallback : public MatchFinder::MatchCallback {
+class FuncRewriteCallback : public clang::ast_matchers::MatchFinder::MatchCallback {
 private:
-  Replacements* replace;
-  const SourceManager* sm; 
+  clang::tooling::Replacements* replace;
+  const clang::SourceManager* sm; 
 public :
-  FuncRewriteCallback(Replacements* replace):replace(replace){};
-  virtual void run(const MatchFinder::MatchResult &);
+  FuncRewriteCallback(clang::tooling::Replacements* replace):replace(replace){};
+  virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &);
 };
 
-class KgenesCallback : public MatchFinder::MatchCallback {
+class KgenesCallback : public  clang::ast_matchers::MatchFinder::MatchCallback {
 private:
-  Replacements* replace;
+  clang::tooling::Replacements* replace;
 public :
-  KgenesCallback(Replacements* replace):replace(replace){};
-  virtual void run(const MatchFinder::MatchResult &);
+  KgenesCallback(clang::tooling::Replacements* replace):replace(replace){};
+  virtual void run(const  clang::ast_matchers::MatchFinder::MatchResult &);
 };
 
-class FgenesCallback : public MatchFinder::MatchCallback {
+class FgenesCallback : public clang::ast_matchers::MatchFinder::MatchCallback {
 private:
-  Replacements* replace;
+  clang::tooling::Replacements* replace;
 public :
-  FgenesCallback(Replacements* replace):replace(replace){};
-  virtual void run(const MatchFinder::MatchResult &);
+  FgenesCallback(clang::tooling::Replacements* replace):replace(replace){};
+  virtual void run(const  clang::ast_matchers::MatchFinder::MatchResult &);
 };

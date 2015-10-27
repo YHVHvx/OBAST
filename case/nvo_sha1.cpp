@@ -1,5 +1,13 @@
 #include "nvo_sha1.h" 
 
+using namespace std;
+using namespace clang;
+using namespace clang::driver;
+using namespace clang::tooling;
+using namespace llvm;
+using namespace clang::ast_matchers;
+using namespace clang::ast_matchers::internal;
+
 FBodys loFBodys;
 
 DeclarationMatcher lo0FuncMatcher = functionDecl(hasName("nv_lo0")).bind("nv_lo");

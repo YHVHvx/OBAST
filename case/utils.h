@@ -6,9 +6,7 @@
 #include <sstream>
 #include "nvo_sha1.h"
 
-using namespace std;
-
-extern string projPath;
+extern std::string projPath;
 extern uint8_t kgenes[20];
 extern uint8_t fgenes[20];
 extern FBodys loFBodys;

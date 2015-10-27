@@ -1,5 +1,7 @@
 #include "utils.h"
 
+using namespace std;
+
 int SaveGenes(){
 
     int result = 0;

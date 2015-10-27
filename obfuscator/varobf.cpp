@@ -1,5 +1,13 @@
 #include "varobf.h" 
 
+using namespace std;
+using namespace clang;
+using namespace clang::driver;
+using namespace clang::tooling;
+using namespace llvm;
+using namespace clang::ast_matchers;
+using namespace clang::ast_matchers::internal;
+
 DeclarationMatcher varDeclMatcher = varDecl().bind("varDecl");
 StatementMatcher varRefMatcher = declRefExpr().bind("varRef");
 

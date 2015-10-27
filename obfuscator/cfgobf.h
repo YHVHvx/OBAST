@@ -21,21 +21,14 @@
 #include <time.h>
 #include "utils.h"
 
-using namespace std;
-using namespace clang;
-using namespace clang::driver;
-using namespace clang::tooling;
-using namespace llvm;
-using namespace clang::ast_matchers;
-using namespace clang::ast_matchers::internal;
 
-extern StatementMatcher stmtCallMatcher;
+extern clang::ast_matchers::StatementMatcher cfgMatcher;
 
-class StmtCallback : public MatchFinder::MatchCallback {
+class CfgCallback : public clang::ast_matchers::MatchFinder::MatchCallback {
 private:
-  Replacements* replace;
-  const SourceManager* srcMgr; 
+  clang::tooling::Replacements* replace;
+  const clang::SourceManager* srcMgr; 
 public :
-  StmtCallback(Replacements* replace):replace(replace){};
-  virtual void run(const MatchFinder::MatchResult &); 
+  CfgCallback(clang::tooling::Replacements* replace):replace(replace){};
+  virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &); 
 };

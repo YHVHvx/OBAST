@@ -21,32 +21,24 @@
 #include <time.h>
 #include "utils.h"
 
-using namespace std;
-using namespace clang;
-using namespace clang::driver;
-using namespace clang::tooling;
-using namespace llvm;
-using namespace clang::ast_matchers;
-using namespace clang::ast_matchers::internal;
+extern clang::ast_matchers::DeclarationMatcher varDeclMatcher;
+extern clang::ast_matchers::StatementMatcher varRefMatcher;
+extern std::map<std::string,std::string> varMap;
 
-extern DeclarationMatcher varDeclMatcher;
-extern StatementMatcher varRefMatcher;
-extern map<string,string> varMap;
-
-class VarDeclCallback : public MatchFinder::MatchCallback {
+class VarDeclCallback : public clang::ast_matchers::MatchFinder::MatchCallback {
 private:
-  Replacements* replace;
-  const SourceManager* srcMgr; 
+  clang::tooling::Replacements* replace;
+  const clang::SourceManager* srcMgr; 
 public :
-  VarDeclCallback(Replacements* replace):replace(replace){};
-  virtual void run(const MatchFinder::MatchResult &); 
+  VarDeclCallback(clang::tooling::Replacements* replace):replace(replace){};
+  virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &); 
 };
 
-class VarRefCallback : public MatchFinder::MatchCallback {
+class VarRefCallback : public clang::ast_matchers::MatchFinder::MatchCallback {
 private:
-  Replacements* replace;
-  const SourceManager* srcMgr; 
+  clang::tooling::Replacements* replace;
+  const clang::SourceManager* srcMgr; 
 public :
-  VarRefCallback(Replacements* replace):replace(replace){};
-  virtual void run(const MatchFinder::MatchResult &);
+  VarRefCallback(clang::tooling::Replacements* replace):replace(replace){};
+  virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &);
 };

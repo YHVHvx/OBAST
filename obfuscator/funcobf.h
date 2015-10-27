@@ -21,32 +21,24 @@
 #include <time.h>
 #include "utils.h"
 
-using namespace std;
-using namespace clang;
-using namespace clang::driver;
-using namespace clang::tooling;
-using namespace llvm;
-using namespace clang::ast_matchers;
-using namespace clang::ast_matchers::internal;
-
-extern DeclarationMatcher funcDeclMatcher;
-extern StatementMatcher funcCallMatcher;
+extern clang::ast_matchers::DeclarationMatcher funcDeclMatcher;
+extern clang::ast_matchers::StatementMatcher funcCallMatcher;
 
 
-class FuncDeclCallback : public MatchFinder::MatchCallback {
+class FuncDeclCallback : public clang::ast_matchers::MatchFinder::MatchCallback {
 private:
-  Replacements* replace;
-  const SourceManager* srcMgr; 
+  clang::tooling::Replacements* replace;
+  const clang::SourceManager* srcMgr; 
 public :
-  FuncDeclCallback(Replacements* replace):replace(replace){};
-  virtual void run(const MatchFinder::MatchResult &); 
+  FuncDeclCallback(clang::tooling::Replacements* replace):replace(replace){};
+  virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &); 
 };
 
-class FuncCallCallback : public MatchFinder::MatchCallback {
+class FuncCallCallback : public clang::ast_matchers::MatchFinder::MatchCallback {
 private:
-  Replacements* replace;
-  const SourceManager* srcMgr; 
+  clang::tooling::Replacements* replace;
+  const clang::SourceManager* srcMgr; 
 public :
-  FuncCallCallback(Replacements* replace):replace(replace){};
-  virtual void run(const MatchFinder::MatchResult &);
+  FuncCallCallback(clang::tooling::Replacements* replace):replace(replace){};
+  virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &);
 };

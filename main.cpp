@@ -25,6 +25,14 @@
 #include "obfuscator/varobf.h"
 
 
+using namespace std;
+using namespace clang;
+using namespace clang::driver;
+using namespace clang::tooling;
+using namespace llvm;
+using namespace clang::ast_matchers;
+using namespace clang::ast_matchers::internal;
+
 string projPath;
 map<string, string> funcMap;
 map<string, string> varMap;
@@ -119,6 +127,17 @@ int Obf_VarName(RefactoringTool &tool){
     return result;
 }
 
+int Obf_CFG(RefactoringTool &tool){
+    int result = 0;
+    
+    CfgCallback cfgCbk(&tool.getReplacements());
+    MatchFinder finder;
+    finder.addMatcher(cfgMatcher, &cfgCbk);
+
+    tool.runAndSave(newFrontendActionFactory(&finder).get());
+    return result;
+}
+
 int main(int argc, const char **argv) {
 
     int result = 0;
@@ -138,13 +157,13 @@ int main(int argc, const char **argv) {
     */
     if(obfType == 0){
     	outs() << "TOBE IMPLEMENTED\n";
-        Obf_VarName(tool);
+        Obf_CFG(tool);
     }
 
     if(obfType == 1){
     	outs() << "Obfuscation Type: General Obfuscation\n";
         Obf_FuncName(tool);
-        //Obf_VarName(tool);
+        Obf_VarName(tool);
     }
 
     if(obfType == 2){
