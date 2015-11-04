@@ -1,9 +1,42 @@
 /home/xuhui/llvm/build/tools/clang/tools/obot/Release+Asserts/main.o \
   /home/xuhui/llvm/build/tools/clang/tools/obot/Release+Asserts/main.d: \
   main.cpp \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Options.h \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/Driver/Options.inc \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/AST.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Frontend/FrontendActions.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Frontend/FrontendAction.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ASTConsumer.h \
+  /home/xuhui/llvm/include/llvm/ADT/StringRef.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/LLVM.h \
+  /home/xuhui/llvm/include/llvm/Support/Casting.h \
+  /home/xuhui/llvm/include/llvm/Support/Compiler.h \
+  /home/xuhui/llvm/build/include/llvm/Config/llvm-config.h \
+  /home/xuhui/llvm/include/llvm/Support/type_traits.h \
+  /home/xuhui/llvm/include/llvm/ADT/None.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/LangOptions.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/CommentOptions.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/ObjCRuntime.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/VersionTuple.h \
+  /home/xuhui/llvm/include/llvm/ADT/Optional.h \
+  /home/xuhui/llvm/include/llvm/Support/AlignOf.h \
+  /home/xuhui/llvm/include/llvm/ADT/Triple.h \
+  /home/xuhui/llvm/include/llvm/ADT/Twine.h \
+  /home/xuhui/llvm/include/llvm/ADT/SmallVector.h \
+  /home/xuhui/llvm/include/llvm/ADT/iterator_range.h \
+  /home/xuhui/llvm/include/llvm/Support/MathExtras.h \
+  /home/xuhui/llvm/include/llvm/Support/SwapByteOrder.h \
+  /home/xuhui/llvm/build/include/llvm/Support/DataTypes.h \
+  /home/xuhui/llvm/include/llvm/Support/ErrorHandling.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Sanitizers.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Sanitizers.def \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Visibility.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Linkage.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/LangOptions.def \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/OpenCLExtensions.def \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Frontend/ASTUnit.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/Index.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/Platform.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/CXErrorCode.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/CXString.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/BuildSystem.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ASTContext.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ASTTypeTraits.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ASTFwd.h \
@@ -12,21 +45,9 @@
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/TypeNodes.def \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/Decl.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/APValue.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/LLVM.h \
-  /home/xuhui/llvm/include/llvm/Support/Casting.h \
-  /home/xuhui/llvm/include/llvm/Support/Compiler.h \
-  /home/xuhui/llvm/build/include/llvm/Config/llvm-config.h \
-  /home/xuhui/llvm/include/llvm/Support/type_traits.h \
-  /home/xuhui/llvm/include/llvm/ADT/None.h \
   /home/xuhui/llvm/include/llvm/ADT/APFloat.h \
   /home/xuhui/llvm/include/llvm/ADT/APInt.h \
   /home/xuhui/llvm/include/llvm/ADT/ArrayRef.h \
-  /home/xuhui/llvm/include/llvm/ADT/SmallVector.h \
-  /home/xuhui/llvm/include/llvm/ADT/iterator_range.h \
-  /home/xuhui/llvm/include/llvm/Support/AlignOf.h \
-  /home/xuhui/llvm/include/llvm/Support/MathExtras.h \
-  /home/xuhui/llvm/include/llvm/Support/SwapByteOrder.h \
-  /home/xuhui/llvm/build/include/llvm/Support/DataTypes.h \
   /home/xuhui/llvm/include/llvm/ADT/APSInt.h \
   /home/xuhui/llvm/include/llvm/ADT/PointerIntPair.h \
   /home/xuhui/llvm/include/llvm/Support/PointerLikeTypeTraits.h \
@@ -35,7 +56,6 @@
   /home/xuhui/llvm/include/llvm/ADT/Hashing.h \
   /home/xuhui/llvm/include/llvm/Support/Host.h \
   /home/xuhui/llvm/include/llvm/ADT/StringMap.h \
-  /home/xuhui/llvm/include/llvm/ADT/StringRef.h \
   /home/xuhui/llvm/include/llvm/Support/Allocator.h \
   /home/xuhui/llvm/include/llvm/Support/Memory.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclBase.h \
@@ -68,11 +88,6 @@
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/TemplateName.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/AddressSpaces.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/ExceptionSpecificationType.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Linkage.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Visibility.h \
-  /home/xuhui/llvm/include/llvm/ADT/Optional.h \
-  /home/xuhui/llvm/include/llvm/ADT/Twine.h \
-  /home/xuhui/llvm/include/llvm/Support/ErrorHandling.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/BuiltinTypes.def \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/OperatorKinds.h \
   /home/xuhui/llvm/include/llvm/Support/raw_ostream.h \
@@ -85,17 +100,8 @@
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/TypeLocNodes.def \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/CanonicalType.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/CommentCommandTraits.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/CommentOptions.h \
   /home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/AST/CommentCommandList.inc \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/PrettyPrinter.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/LangOptions.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/ObjCRuntime.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/VersionTuple.h \
-  /home/xuhui/llvm/include/llvm/ADT/Triple.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Sanitizers.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Sanitizers.def \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/LangOptions.def \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/OpenCLExtensions.def \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/RawCommentList.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/SourceManager.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/FileManager.h \
@@ -115,50 +121,6 @@
   /home/xuhui/llvm/include/llvm/Support/SpecialCaseList.h \
   /home/xuhui/llvm/include/llvm/ADT/SmallPtrSet.h \
   /home/xuhui/llvm/include/llvm/ADT/TinyPtrVector.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclCXX.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ASTUnresolvedSet.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ASTVector.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/UnresolvedSet.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclAccessPair.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/Attr.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/Expr.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/OperationKinds.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/CharInfo.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/TypeTraits.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Builtins.def \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/AttrKinds.h \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/Basic/AttrList.inc \
-  /home/xuhui/llvm/include/llvm/ADT/StringSwitch.h \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/AST/Attrs.inc \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/LambdaCapture.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Lambda.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclObjC.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/SelectorLocationsKind.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclTemplate.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ExprObjC.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/StmtVisitor.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ExprCXX.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/ExpressionTraits.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/StmtCXX.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/StmtObjC.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/StmtOpenMP.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/OpenMPClause.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/OpenMPKinds.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/OpenMPKinds.def \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ASTConsumer.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/RecursiveASTVisitor.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclFriend.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclOpenMP.h \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/AST/AttrVisitor.inc \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Frontend/ASTConsumers.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Frontend/FrontendActions.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Frontend/FrontendAction.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Frontend/ASTUnit.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/Index.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/Platform.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/CXErrorCode.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/CXString.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/BuildSystem.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/TargetOptions.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/HeaderSearchOptions.h \
   /home/xuhui/llvm/include/llvm/ADT/SetVector.h \
@@ -198,13 +160,34 @@
   /home/xuhui/llvm/include/llvm/Option/OptSpecifier.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Tooling/CommonOptionsParser.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Tooling/CompilationDatabase.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Tooling/Tooling.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Util.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Tooling/ArgumentsAdjusters.h \
-  /home/xuhui/llvm/include/llvm/Option/Option.h \
-  /home/xuhui/llvm/include/llvm/Option/OptTable.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/ASTMatchers/ASTMatchers.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclFriend.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclCXX.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ASTUnresolvedSet.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ASTVector.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/UnresolvedSet.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclAccessPair.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/Attr.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/Expr.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/OperationKinds.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/CharInfo.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/TypeTraits.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Builtins.def \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/AttrKinds.h \
+  /home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/Basic/AttrList.inc \
+  /home/xuhui/llvm/include/llvm/ADT/StringSwitch.h \
+  /home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/AST/Attrs.inc \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/LambdaCapture.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Lambda.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclTemplate.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclObjC.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/SelectorLocationsKind.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/ASTMatchers/ASTMatchersInternal.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ExprCXX.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/ExpressionTraits.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ExprObjC.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/StmtCXX.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/StmtObjC.h \
   /home/xuhui/llvm/include/llvm/ADT/VariadicFunction.h \
   /home/xuhui/llvm/include/llvm/Support/ManagedStatic.h \
   /home/xuhui/llvm/include/llvm/Support/Atomic.h \
@@ -215,27 +198,110 @@
   /home/xuhui/llvm/include/llvm/Support/Timer.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Tooling/Refactoring.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Tooling/Core/Replacement.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Tooling/Tooling.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Util.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Tooling/ArgumentsAdjusters.h \
+  /home/xuhui/llvm/include/llvm/Option/Option.h \
+  /home/xuhui/llvm/include/llvm/Option/OptTable.h \
+  /home/xuhui/llvm/build/tools/clang/tools/obot/case/nvo_sha1.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Options.h \
+  /home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/Driver/Options.inc \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/AST.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/StmtVisitor.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/StmtOpenMP.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/OpenMPClause.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/OpenMPKinds.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/OpenMPKinds.def \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/RecursiveASTVisitor.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclOpenMP.h \
+  /home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/AST/AttrVisitor.inc \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Frontend/ASTConsumers.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/Rewriter.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteBuffer.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/DeltaTree.h \
+  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteRope.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/Lexer.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/PreprocessorLexer.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/MultipleIncludeOpt.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/Token.h \
   /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/TemplateKinds.h \
-  /home/xuhui/llvm/build/tools/clang/tools/obot/case/nvo_sha1.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/Rewriter.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteBuffer.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/DeltaTree.h \
-  /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteRope.h \
   /home/xuhui/llvm/build/tools/clang/tools/obot/case/utils.h \
   /home/xuhui/llvm/build/tools/clang/tools/obot/obfuscator/utils.h \
   /home/xuhui/llvm/build/tools/clang/tools/obot/obfuscator/funcobf.h \
   /home/xuhui/llvm/build/tools/clang/tools/obot/obfuscator/cfgobf.h \
   /home/xuhui/llvm/build/tools/clang/tools/obot/obfuscator/varobf.h
 
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Options.h:
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Frontend/FrontendActions.h:
 
-/home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/Driver/Options.inc:
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Frontend/FrontendAction.h:
 
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/AST.h:
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ASTConsumer.h:
+
+/home/xuhui/llvm/include/llvm/ADT/StringRef.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/LLVM.h:
+
+/home/xuhui/llvm/include/llvm/Support/Casting.h:
+
+/home/xuhui/llvm/include/llvm/Support/Compiler.h:
+
+/home/xuhui/llvm/build/include/llvm/Config/llvm-config.h:
+
+/home/xuhui/llvm/include/llvm/Support/type_traits.h:
+
+/home/xuhui/llvm/include/llvm/ADT/None.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/LangOptions.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/CommentOptions.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/ObjCRuntime.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/VersionTuple.h:
+
+/home/xuhui/llvm/include/llvm/ADT/Optional.h:
+
+/home/xuhui/llvm/include/llvm/Support/AlignOf.h:
+
+/home/xuhui/llvm/include/llvm/ADT/Triple.h:
+
+/home/xuhui/llvm/include/llvm/ADT/Twine.h:
+
+/home/xuhui/llvm/include/llvm/ADT/SmallVector.h:
+
+/home/xuhui/llvm/include/llvm/ADT/iterator_range.h:
+
+/home/xuhui/llvm/include/llvm/Support/MathExtras.h:
+
+/home/xuhui/llvm/include/llvm/Support/SwapByteOrder.h:
+
+/home/xuhui/llvm/build/include/llvm/Support/DataTypes.h:
+
+/home/xuhui/llvm/include/llvm/Support/ErrorHandling.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Sanitizers.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Sanitizers.def:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Visibility.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Linkage.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/LangOptions.def:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/OpenCLExtensions.def:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Frontend/ASTUnit.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/Index.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/Platform.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/CXErrorCode.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/CXString.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/BuildSystem.h:
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ASTContext.h:
 
@@ -253,35 +319,11 @@
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/APValue.h:
 
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/LLVM.h:
-
-/home/xuhui/llvm/include/llvm/Support/Casting.h:
-
-/home/xuhui/llvm/include/llvm/Support/Compiler.h:
-
-/home/xuhui/llvm/build/include/llvm/Config/llvm-config.h:
-
-/home/xuhui/llvm/include/llvm/Support/type_traits.h:
-
-/home/xuhui/llvm/include/llvm/ADT/None.h:
-
 /home/xuhui/llvm/include/llvm/ADT/APFloat.h:
 
 /home/xuhui/llvm/include/llvm/ADT/APInt.h:
 
 /home/xuhui/llvm/include/llvm/ADT/ArrayRef.h:
-
-/home/xuhui/llvm/include/llvm/ADT/SmallVector.h:
-
-/home/xuhui/llvm/include/llvm/ADT/iterator_range.h:
-
-/home/xuhui/llvm/include/llvm/Support/AlignOf.h:
-
-/home/xuhui/llvm/include/llvm/Support/MathExtras.h:
-
-/home/xuhui/llvm/include/llvm/Support/SwapByteOrder.h:
-
-/home/xuhui/llvm/build/include/llvm/Support/DataTypes.h:
 
 /home/xuhui/llvm/include/llvm/ADT/APSInt.h:
 
@@ -298,8 +340,6 @@
 /home/xuhui/llvm/include/llvm/Support/Host.h:
 
 /home/xuhui/llvm/include/llvm/ADT/StringMap.h:
-
-/home/xuhui/llvm/include/llvm/ADT/StringRef.h:
 
 /home/xuhui/llvm/include/llvm/Support/Allocator.h:
 
@@ -365,16 +405,6 @@
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/ExceptionSpecificationType.h:
 
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Linkage.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Visibility.h:
-
-/home/xuhui/llvm/include/llvm/ADT/Optional.h:
-
-/home/xuhui/llvm/include/llvm/ADT/Twine.h:
-
-/home/xuhui/llvm/include/llvm/Support/ErrorHandling.h:
-
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/BuiltinTypes.def:
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/OperatorKinds.h:
@@ -399,27 +429,9 @@
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/CommentCommandTraits.h:
 
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/CommentOptions.h:
-
 /home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/AST/CommentCommandList.inc:
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/PrettyPrinter.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/LangOptions.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/ObjCRuntime.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/VersionTuple.h:
-
-/home/xuhui/llvm/include/llvm/ADT/Triple.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Sanitizers.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Sanitizers.def:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/LangOptions.def:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/OpenCLExtensions.def:
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/RawCommentList.h:
 
@@ -458,94 +470,6 @@
 /home/xuhui/llvm/include/llvm/ADT/SmallPtrSet.h:
 
 /home/xuhui/llvm/include/llvm/ADT/TinyPtrVector.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclCXX.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ASTUnresolvedSet.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ASTVector.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/UnresolvedSet.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclAccessPair.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/Attr.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/Expr.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/OperationKinds.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/CharInfo.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/TypeTraits.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Builtins.def:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/AttrKinds.h:
-
-/home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/Basic/AttrList.inc:
-
-/home/xuhui/llvm/include/llvm/ADT/StringSwitch.h:
-
-/home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/AST/Attrs.inc:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/LambdaCapture.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Lambda.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclObjC.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/SelectorLocationsKind.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclTemplate.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ExprObjC.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/StmtVisitor.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ExprCXX.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/ExpressionTraits.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/StmtCXX.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/StmtObjC.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/StmtOpenMP.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/OpenMPClause.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/OpenMPKinds.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/OpenMPKinds.def:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ASTConsumer.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/RecursiveASTVisitor.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclFriend.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclOpenMP.h:
-
-/home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/AST/AttrVisitor.inc:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Frontend/ASTConsumers.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Frontend/FrontendActions.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Frontend/FrontendAction.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Frontend/ASTUnit.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/Index.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/Platform.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/CXErrorCode.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/CXString.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang-c/BuildSystem.h:
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/TargetOptions.h:
 
@@ -625,19 +549,61 @@
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Tooling/CompilationDatabase.h:
 
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Tooling/Tooling.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Util.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Tooling/ArgumentsAdjusters.h:
-
-/home/xuhui/llvm/include/llvm/Option/Option.h:
-
-/home/xuhui/llvm/include/llvm/Option/OptTable.h:
-
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/ASTMatchers/ASTMatchers.h:
 
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclFriend.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclCXX.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ASTUnresolvedSet.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ASTVector.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/UnresolvedSet.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclAccessPair.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/Attr.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/Expr.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/OperationKinds.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/CharInfo.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/TypeTraits.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Builtins.def:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/AttrKinds.h:
+
+/home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/Basic/AttrList.inc:
+
+/home/xuhui/llvm/include/llvm/ADT/StringSwitch.h:
+
+/home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/AST/Attrs.inc:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/LambdaCapture.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/Lambda.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclTemplate.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclObjC.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/SelectorLocationsKind.h:
+
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/ASTMatchers/ASTMatchersInternal.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ExprCXX.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/ExpressionTraits.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/ExprObjC.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/StmtCXX.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/StmtObjC.h:
 
 /home/xuhui/llvm/include/llvm/ADT/VariadicFunction.h:
 
@@ -659,6 +625,50 @@
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Tooling/Core/Replacement.h:
 
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Tooling/Tooling.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Util.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Tooling/ArgumentsAdjusters.h:
+
+/home/xuhui/llvm/include/llvm/Option/Option.h:
+
+/home/xuhui/llvm/include/llvm/Option/OptTable.h:
+
+/home/xuhui/llvm/build/tools/clang/tools/obot/case/nvo_sha1.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Driver/Options.h:
+
+/home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/Driver/Options.inc:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/AST.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/StmtVisitor.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/StmtOpenMP.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/OpenMPClause.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/OpenMPKinds.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/OpenMPKinds.def:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/RecursiveASTVisitor.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/AST/DeclOpenMP.h:
+
+/home/xuhui/llvm/build/tools/clang/tools/obot/../../include/clang/AST/AttrVisitor.inc:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Frontend/ASTConsumers.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/Rewriter.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteBuffer.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/DeltaTree.h:
+
+/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteRope.h:
+
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/Lexer.h:
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/PreprocessorLexer.h:
@@ -668,16 +678,6 @@
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Lex/Token.h:
 
 /home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Basic/TemplateKinds.h:
-
-/home/xuhui/llvm/build/tools/clang/tools/obot/case/nvo_sha1.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/Rewriter.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteBuffer.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/DeltaTree.h:
-
-/home/xuhui/llvm/tools/clang/tools/obot/../../include/clang/Rewrite/Core/RewriteRope.h:
 
 /home/xuhui/llvm/build/tools/clang/tools/obot/case/utils.h:
 
