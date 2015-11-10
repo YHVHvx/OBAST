@@ -22,14 +22,14 @@
 #include "utils.h"
 
 
-extern clang::ast_matchers::StatementMatcher cfgMatcher;
+extern clang::ast_matchers::StatementMatcher binOpMatcher;
 void InitCodeSet();
 
-class CfgCallback : public clang::ast_matchers::MatchFinder::MatchCallback {
+class BinOpCallback : public clang::ast_matchers::MatchFinder::MatchCallback {
 private:
   clang::tooling::Replacements* replace;
   const clang::SourceManager* srcMgr; 
 public :
-  CfgCallback(clang::tooling::Replacements* replace):replace(replace){};
+  BinOpCallback(clang::tooling::Replacements* replace):replace(replace){};
   virtual void run(const clang::ast_matchers::MatchFinder::MatchResult &); 
 };

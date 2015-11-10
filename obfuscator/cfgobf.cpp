@@ -11,7 +11,8 @@ using namespace clang::ast_matchers::internal;
 vector<string> opConstCodes; 
 vector<string> junkCodes; 
 
-StatementMatcher cfgMatcher = binaryOperator(hasDescendant(callExpr())).bind("cfg");
+//TODO: MORE MATCHER
+StatementMatcher binOpMatcher = binaryOperator(hasRHS(hasDescendant(callExpr()))).bind("binOp");
 
 void InitCodeSet(){
     opConstCodes.push_back("char *varOpConst = \"test\";\n"
@@ -23,15 +24,15 @@ void InitCodeSet(){
 }
 
 
-void CfgCallback::run(const MatchFinder::MatchResult &result) {
+void BinOpCallback::run(const MatchFinder::MatchResult &result) {
     srcMgr = result.SourceManager;
-    const BinaryOperator* binOp = result.Nodes.getNodeAs<clang::BinaryOperator>("cfg");
+    const BinaryOperator* binOp = result.Nodes.getNodeAs<clang::BinaryOperator>("binOp");
     string fileName = srcMgr->getFilename(binOp->getOperatorLoc());
     if (fileName.compare(0,projPath.size(),projPath) != 0){
         return ;
     }
 
-    SourceLocation opLoc = binOp->getOperatorLoc();
+    //TODO CHECK DECL
     SourceLocation opStartLoc = binOp->getLHS()->getLocStart();
     SourceLocation opEndLoc = binOp->getRHS()->getLocEnd().getLocWithOffset(2);
 

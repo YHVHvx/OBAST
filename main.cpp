@@ -109,9 +109,9 @@ int Obf_VarName(RefactoringTool &tool){
 int Obf_CFG(RefactoringTool &tool){
     int result = 0;
     
-    CfgCallback cfgCbk(&tool.getReplacements());
+    BinOpCallback binOpCbk(&tool.getReplacements());
     MatchFinder finder;
-    finder.addMatcher(cfgMatcher, &cfgCbk);
+    finder.addMatcher(binOpMatcher, &binOpCbk);
 
     result = tool.runAndSave(newFrontendActionFactory(&finder).get());
     return result;
