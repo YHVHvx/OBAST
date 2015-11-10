@@ -51,7 +51,7 @@ int NVO_Sha1Alg(RefactoringTool &tool){
     int result = tool.runAndSave(newFrontendActionFactory(&genFinder).get());
     SaveGenes();
 
-    //Obtain the codes
+    //Obtain the codes of SHA1 sub function bodies
     FuncReadCallback lo0ReadCallback(&tool.getReplacements());
     FuncReadCallback lo1ReadCallback(&tool.getReplacements());
     FuncReadCallback lo2ReadCallback(&tool.getReplacements());
@@ -113,7 +113,7 @@ int Obf_CFG(RefactoringTool &tool){
     MatchFinder finder;
     finder.addMatcher(cfgMatcher, &cfgCbk);
 
-    tool.runAndSave(newFrontendActionFactory(&finder).get());
+    result = tool.runAndSave(newFrontendActionFactory(&finder).get());
     return result;
 }
 
@@ -132,7 +132,8 @@ int main(int argc, const char **argv) {
     srand (1000000*t.tv_sec+t.tv_usec);
 
     if(obfType == 0){
-    	outs() << "TOBE IMPLEMENTED\n";
+    	outs() << "Reserved for Developers\n";
+        InitCodeSet();
         Obf_CFG(tool);
     }
 
@@ -150,9 +151,9 @@ int main(int argc, const char **argv) {
     	outs() << "Obfuscation Type: Specific N-version Obfuscation for the SHA1 Algorithm\n";
         NVO_Sha1Alg(tool);
     	outs() << "Replacements collected by the tool:\n";
-    	for (auto &r : tool.getReplacements()) {
-	    outs() << r.toString() << "\n";
-    	}
+    	//for (auto &r : tool.getReplacements()) {
+	    //outs() << r.toString() << "\n";
+    	//}
     }
 
     return result;

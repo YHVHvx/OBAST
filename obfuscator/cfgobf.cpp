@@ -11,32 +11,35 @@ using namespace clang::ast_matchers::internal;
 vector<string> opConstCodes; 
 vector<string> junkCodes; 
 
-StatementMatcher cfgMatcher = callExpr().bind("cfg");
+StatementMatcher cfgMatcher = binaryOperator(hasDescendant(callExpr())).bind("cfg");
 
 void InitCodeSet(){
-    opConstCodes.push_back("char *varOpConst = \"test\""
-    		"if(varOpConst % 4 == 0)");    
-    junkCodes.push_back("struct timeval tJkTime;"
-    		"gettimeofday(&tJkTime, NULL);"
-    		"srand (1000000*tJkTime.tv_sec+tJkTime.tv_usec);");
+    opConstCodes.push_back("char *varOpConst = \"test\";\n"
+    		"if((int)varOpConst % 4 == 0)");    
+    junkCodes.push_back("int jospsss = 0;\n");
+    junkCodes.push_back("struct timeval tJkTime;\n"
+    		"gettimeofday(&tJkTime, NULL);\n"
+    		"srand (1000000*tJkTime.tv_sec+tJkTime.tv_usec);\n");
 }
 
 
 void CfgCallback::run(const MatchFinder::MatchResult &result) {
     srcMgr = result.SourceManager;
-    const Stmt* stmt = result.Nodes.getNodeAs<clang::Stmt>("cfg");
-    string fileName = srcMgr->getFilename(stmt->getLocStart());
-    if (fileName.compare(0,projPath.size(),projPath) != 0
-        ||IsDeclStmt(stmt)
-        ||IsReturnStmt(stmt)){ 
+    const BinaryOperator* binOp = result.Nodes.getNodeAs<clang::BinaryOperator>("cfg");
+    string fileName = srcMgr->getFilename(binOp->getOperatorLoc());
+    if (fileName.compare(0,projPath.size(),projPath) != 0){
         return ;
     }
-    SourceLocation stmtStart = stmt->getLocStart();
-    SourceLocation stmtEnd = stmt->getLocEnd();
 
-    string strOpaqueConst = opConstCodes[0] + "{";
-    string strJunkCodes = "} \n else {" + junkCodes[0] +"\n}";
+    SourceLocation opLoc = binOp->getOperatorLoc();
+    SourceLocation opStartLoc = binOp->getLHS()->getLocStart();
+    SourceLocation opEndLoc = binOp->getRHS()->getLocEnd().getLocWithOffset(2);
+
+    string strOpaqueConst = opConstCodes[0] + "{\n";
+    string strJunkCodes = "\n} else { \n" + junkCodes[0] +"}";
     
-    Replacement rep(*srcMgr, stmtStart, 0, strOpaqueConst);
-    replace->insert(rep);
+    Replacement repOpConst(*srcMgr, opStartLoc, 0, strOpaqueConst);
+    Replacement repJunk(*srcMgr, opEndLoc, 0, strJunkCodes);
+    replace->insert(repOpConst);
+    replace->insert(repJunk);
 }

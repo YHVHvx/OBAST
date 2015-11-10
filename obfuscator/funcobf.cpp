@@ -35,7 +35,6 @@ void FuncDeclCallback::run(const MatchFinder::MatchResult &result) {
         }
         funcMap[funcName] = newName;
     }
-    
     SourceRange srcRange = funcDecl->getNameInfo().getSourceRange();
     CharSourceRange charSrcRange = CharSourceRange::getTokenRange(srcRange);
     Replacement rep(*srcMgr, charSrcRange, newName, LangOptions());
@@ -69,7 +68,6 @@ void FuncCallCallback::run(const MatchFinder::MatchResult &result) {
         }
 */
     }
-
     if (funcName != ""){
         newName = funcMap[funcName];
     }    
@@ -80,5 +78,4 @@ void FuncCallCallback::run(const MatchFinder::MatchResult &result) {
         replace->insert(rep);
         outs() << "** Rewrote function call\n" << funcName<<" to "<<newName;
     }
-    
 }

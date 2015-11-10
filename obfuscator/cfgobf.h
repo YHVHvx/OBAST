@@ -23,6 +23,7 @@
 
 
 extern clang::ast_matchers::StatementMatcher cfgMatcher;
+void InitCodeSet();
 
 class CfgCallback : public clang::ast_matchers::MatchFinder::MatchCallback {
 private:
