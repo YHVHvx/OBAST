@@ -12,7 +12,11 @@ vector<string> opConstCodes;
 vector<string> junkCodes; 
 
 //TODO: MORE MATCHER
-StatementMatcher binOpMatcher = binaryOperator(hasRHS(hasDescendant(callExpr()))).bind("binOp");
+StatementMatcher binOpMatcher = binaryOperator(
+			unless(hasParent(implicitCastExpr())),//Handle cast inside a conditionalOperator
+			unless(hasParent(conditionalOperator())),//Handle if, for, while
+			hasRHS(callExpr()),
+			hasOperatorName("=")).bind("binOp");
 
 void InitCodeSet(){
     opConstCodes.push_back("char *varOpConst = \"test\";\n"
@@ -27,6 +31,8 @@ void InitCodeSet(){
 void BinOpCallback::run(const MatchFinder::MatchResult &result) {
     srcMgr = result.SourceManager;
     const BinaryOperator* binOp = result.Nodes.getNodeAs<clang::BinaryOperator>("binOp");
+    //binOp->dump();
+    //outs() << binOp->getOpcodeStr();
     string fileName = srcMgr->getFilename(binOp->getOperatorLoc());
     if (fileName.compare(0,projPath.size(),projPath) != 0){
         return ;
